@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name='viewport' content='width=device-width' />
+        <title>Enviar</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </head>
+    <body>   
+		<nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" href="#">Enviar</a>
+			  </div>
+			</div>
+		</nav>
+		<div class='container' id='upload'>
+			<div class="form-group">
+				<label for="arquivo">Arquivo:</label>
+				<input type="file" multiple class="form-control-file" id="arquivo">
+			</div>
+			<button type="button" class="btn btn-primary btn-block" onclick='enviar()'>Enviar</button>
+			<button type="button" class="btn btn-default btn-block" onclick='cancelar()'>Cancelar</button>
+	  </div>
+	  <div id ='loading' style='display: none'>
+		<table align = 'center'>
+			<tr>
+				<td><img src='/carregando'></img></td>
+			</tr>
+		</table>
+		<h2 align='center' id='progress'></h2>
+	  </div>
+	</body>
+	
+	<script charset="utf-8">
+                        
+    function enviar(){
+	var arquivo = document.getElementById('arquivo')
+	if(arquivo.files[0]){
+		$('#upload').hide();
+		$('#loading').show();
+		var id = window.location.href.split('/');
+		id = id[id.length-1];
+        
+		var formData = new FormData();
+
+		for (var i = 0, file; file = arquivo.files[i]; ++i) {
+			formData.append(file.name, file);
+		}
+        var xhr = new XMLHttpRequest();
+		xhr.upload.onprogress = (event) => {
+		var porcentagem = ((event.loaded / event.total)*100).toFixed(2);
+		document.getElementById('progress').innerHTML = porcentagem + "%";
+		
+		};
+		xhr.upload.onload = () => {
+			window.close();
+		};
+        xhr.open("POST", '/enviar/'+id, true);
+        //xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+		xhr.send(formData);
+	}else alert('Selecione um arquivo')
+    }
+	function cancelar(){
+		$.get('/cancel',(e)=>{
+			window.close();
+		});
+	}
+	
+    </script>
+</html>
