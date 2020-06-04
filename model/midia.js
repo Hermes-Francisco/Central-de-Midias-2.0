@@ -25,7 +25,8 @@ class Midia{
     }
     like_folder(local, tipo, res){
 		local = encodeURI(local);
-        sql.query('select id, nome, local, tipo from arquivo where local like "%/' + local +'/%" and tipo='+tipo+' order by nome', (err, r) => {
+        sql.query('select id, nome, local, tipo from arquivo where local like "%/' + local +'/%"'+
+		' and local not like "%/' + local +'/%/%" and tipo='+tipo+' order by nome', (err, r) => {
             if(err)throw err;
             return res(r);
         });
