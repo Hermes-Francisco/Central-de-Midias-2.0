@@ -26,6 +26,7 @@ function todos(){
 	listar_tipos();
     document.getElementById('Lista-titulo').innerHTML = "Procurar";
     document.getElementById('lista').innerHTML = " ";
+	document.getElementById('navbar_head').innerHTML = '<a class="navbar-brand" href="#">Arquivos</a>';
 	$('#pesquisa').show();
     
     $.getJSON("/arquivos/tipo", function(data) {
@@ -56,6 +57,7 @@ function tipo(id, nome){
 	$('#pesquisa').hide();
     document.getElementById('Lista-titulo').innerHTML = iniMaiuscula(nome);
     document.getElementById('lista').innerHTML = " ";
+	document.getElementById('navbar_head').innerHTML = '<a class="navbar-brand" href="#">Arquivos</a>';
 	
     $.getJSON("/arquivos/"+id, function(data) {
         for(i = 0; i < data.length; i++){
@@ -234,7 +236,6 @@ function cancelar(){
 	id_editado = 0;
 }
 function voltar(){
-	document.getElementById('navbar_head').innerHTML = '<a class="navbar-brand" href="#">Arquivos</a>';
 	if(tipo_id > 0)tipo(tipo_id, tipo_nome);
 	else todos();
 };
