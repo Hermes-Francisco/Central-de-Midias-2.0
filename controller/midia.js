@@ -16,6 +16,12 @@ class MidiaController{
             return res.json(r);
         })
     }
+	search_folder(req, res){
+		const { tipo, local } = req.params;
+        Arquivo.like_folder(local, tipo, (r) => {
+            return res.json(r);
+        })
+    }
 
     show(req, res){
         const { id } = req.params;

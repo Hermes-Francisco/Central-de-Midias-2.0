@@ -33,13 +33,15 @@ function todos(){
 
             var dir = data[i].local.split('/');
             var diretorio = iniMaiuscula(decodeURI(dir[dir.length-2]));
-			var dirLink = ((host)?"'../dir/"+data[i].id+"' target='blanck'":"#");
+			var dirLink = "folder('"+dir[dir.length-2]+"', '"+diretorio+"')";
 			var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
-			var opcao = ((host)?"<td><a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-right:5px' height='20'></img></a>" + 
+			var opcao = ((host)?"<td width='100px'><a href='../dir/"+data[i].id+"' target='blanck'><img src='/folder' style='margin-right:5px' height='20'></img></a>"+
+			"<a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-left:5px; margin-right:5px' height='20'></img></a>" + 
 			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
+			var nome = "'"+decodeURI(data[i].nome)+"'"
 
-            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+decodeURI(data[i].nome)+'</a></td>'+
-            '<td><a href='+dirLink+'>'+diretorio+'</a></td>'+opcao+'</tr>')
+            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+decodeURI(data[i].nome)+'</a></td>'+
+            '<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>')
         }
     });
 	tipo_id = 0;
@@ -60,13 +62,15 @@ function tipo(id, nome){
 
             var dir = data[i].local.split('/');
             var diretorio = iniMaiuscula(decodeURI(dir[dir.length-2]));
-			var dirLink = ((host)?"'../dir/"+data[i].id+"' target='blanck'":"#");
+			var dirLink = "folder('"+dir[dir.length-2]+"', '"+diretorio+"')";
 			var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
-			var opcao = ((host)?"<td><a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-right:5px' height='20'></img></a>" + 
+			var opcao = ((host)?"<td width='100px'><a href='../dir/"+data[i].id+"' target='blanck'><img src='/folder' style='margin-right:5px' height='20'></img></a>"+
+			"<a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-left:5px; margin-right:5px' height='20'></img></a>" + 
 			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
+			var nome = "'"+decodeURI(data[i].nome)+"'"
 
-            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+decodeURI(data[i].nome)+'</a></td>'+
-            '<td><a href='+dirLink+'>'+diretorio+'</a></td>'+opcao+'</tr>')
+            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+decodeURI(data[i].nome)+'</a></td>'+
+            '<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>')
         }
     });
 	tipo_id = id;
@@ -87,18 +91,47 @@ function pesquisa(){
 
             var dir = data[i].local.split('/');
             var diretorio = iniMaiuscula(decodeURI(dir[dir.length-2]));
-			var dirLink = ((host)?"'../dir/"+data[i].id+"' target='blanck'":"#");
+			var dirLink = "folder('"+dir[dir.length-2]+"', '"+diretorio+"')";
 			var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
-			var opcao = ((host)?"<td><a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-right:5px' height='20'></img></a>" + 
+			var opcao = ((host)?"<td width='100px'><a href='../dir/"+data[i].id+"' target='blanck'><img src='/folder' style='margin-right:5px' height='20'></img></a>"+
+			"<a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-left:5px; margin-right:5px' height='20'></img></a>" + 
 			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
+			var nome = "'"+decodeURI(data[i].nome)+"'"
 
-            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+decodeURI(data[i].nome)+'</a></td>'+
-            '<td><a href='+dirLink+'>'+diretorio+'</a></td>'+opcao+'</tr>')
+            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+decodeURI(data[i].nome)+'</a></td>'+
+            '<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>')
         }
     });
 	tipo_id = 0;
 	tipo_nome = "";
 	}
+}
+function folder(local, nome){
+	listar_tipos();
+	$('#pesquisa').hide();
+	var titulo_folder  = ((tipo_nome == "")?iniMaiuscula(nome):iniMaiuscula(tipo_nome)+" ("+iniMaiuscula(nome)+")");
+    document.getElementById('Lista-titulo').innerHTML = titulo_folder;
+    document.getElementById('lista').innerHTML = " ";
+	document.getElementById('navbar_head').innerHTML = '<a class="navbar-brand" href="#" onclick="voltar()">Voltar</a>';
+	
+	var tipo_atual = tipo_id;
+	if(tipo_atual == 0)tipo_atual = 'tipo';
+	
+    $.getJSON("/search/"+local+"/"+tipo_atual, function(data) {
+        for(i = 0; i < data.length; i++){
+
+            var dir = data[i].local.split('/');
+            var diretorio = iniMaiuscula(decodeURI(dir[dir.length-2]));
+			var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
+			var opcao = ((host)?"<td width='100px'><a href='../dir/"+data[i].id+"' target='blanck'><img src='/folder' style='margin-right:5px' height='20'></img></a>"+
+			"<a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-left:5px; margin-right:5px' height='20'></img></a>" + 
+			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
+			var nome = "'"+decodeURI(data[i].nome)+"'"
+
+            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+decodeURI(data[i].nome)+'</a></td>'+
+            '<td><a href="#">'+diretorio+'</a></td>'+opcao+'</tr>')
+        }
+    });
 }
 function adicionar(){
 	$.getJSON('/dialog')
@@ -128,13 +161,17 @@ function audio(id){
     }
     player.onended = ()=>{
         document.getElementById('musica').innerHTML = " ";
+		document.title = 'Central de Mídias'
         numero = 0;
         player='';
     }
 }
 
-function midia(tipo, id){
-    if(tipo == 1)audio(id);
+function midia(tipo, id, nome){
+    if(tipo == 1){
+		audio(id);
+		document.title = nome;
+	}
     if(tipo == 2 || tipo == 3){
         OpenWindow("../abrir/"+id);
         if(tipo == 2 && player !='')player.pause();
@@ -196,3 +233,8 @@ function cancelar(){
 	$('#update').hide();
 	id_editado = 0;
 }
+function voltar(){
+	document.getElementById('navbar_head').innerHTML = '<a class="navbar-brand" href="#">Arquivos</a>';
+	if(tipo_id > 0)tipo(tipo_id, tipo_nome);
+	else todos();
+};

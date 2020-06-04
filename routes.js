@@ -13,8 +13,14 @@ const shell = require('shelljs');
 routes.get('/teste', (req, res) => {
     return res.sendFile(__dirname + "/view/teste.html")
 })
+routes.get('/icone', (req, res) => {
+    return res.sendFile(__dirname + "/view/favicon.png")
+})
 routes.get('/', (req, res) => {
     return res.sendFile(__dirname + "/view/index.html")
+})
+routes.get('/folder', (req, res) => {
+    return res.sendFile(__dirname + "/view/folder.ico")
 })
 routes.get('/lapis', (req, res) => {
     return res.sendFile(__dirname + "/view/lapis.ico")
@@ -29,6 +35,7 @@ routes.get('/carregando', (req, res) => {
 routes.post('/', Arquivo.store);
 routes.get('/arquivos/:tipo', Arquivo.index);
 routes.get('/search/:query', Arquivo.search);
+routes.get('/search/:local/:tipo', Arquivo.search_folder);
 routes.get('/abrir/:id', Arquivo.send)
 routes.get('/script', (req, res) => {
     return res.sendFile(__dirname + "/view/script.js")

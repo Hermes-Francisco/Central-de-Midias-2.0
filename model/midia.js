@@ -23,6 +23,13 @@ class Midia{
             return res(r);
         });
     }
+    like_folder(local, tipo, res){
+		local = encodeURI(local);
+        sql.query('select id, nome, local, tipo from arquivo where local like "%/' + local +'/%" and tipo='+tipo+' order by nome', (err, r) => {
+            if(err)throw err;
+            return res(r);
+        });
+    }
 
     show(id, res){
         sql.query('select nome, local from arquivo where id='+id, (err, r) => {
