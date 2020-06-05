@@ -36,6 +36,7 @@ routes.post('/', Arquivo.store);
 routes.get('/arquivos/:tipo', Arquivo.index);
 routes.get('/search/:query', Arquivo.search);
 routes.get('/search/:local/:tipo', Arquivo.search_folder);
+routes.get('/pastas/:tipo', Arquivo.index_folder);
 routes.get('/abrir/:id', Arquivo.send)
 routes.get('/script', (req, res) => {
     return res.sendFile(__dirname + "/view/script.js")
@@ -44,17 +45,20 @@ routes.get('/ab/:id', Arquivo.open)
 routes.get('/dir/:id', Arquivo.openDir);
 routes.get('/tipos', Tipo.index);
 
-var dialog = false;
+function checkIp(req, res, next){
+	if(req.connection.remoteAddress == '::1'){
+		return next();
+	}else return res.send("<h1>Não Autorizado</h1>")
+}
 
-routes.get('/dialog', (req, res) => {
+routes.get('/dialog', checkIp,(req, res) => {
 	shell.exec('start explorer '+ __dirname + "\\registrar.exe");
-	dialog = true;
 	return res.send("<script>window.close()</script>")
 })
 
-routes.get('/upload/*', (req, res) => {
+routes.get('/upload/*', checkIp, (req, res) => {
 	
-	if(!dialog) return res.send("<html><h1>Origem desconhecida</h1></html>");
+	//if(!dialog) return res.send("<html><h1>Origem desconhecida</h1></html>");
 	
 	var array = req.params[0].split("/");
 	
@@ -72,8 +76,8 @@ routes.get('/upload/*', (req, res) => {
 });
 
 routes.get('/show/:id', Arquivo.show)
-routes.delete('/', Arquivo.delete);
-routes.put('/:id', Arquivo.update);
+routes.delete('/', checkIp, Arquivo.delete);
+routes.put('/:id', checkIp, Arquivo.update);
 routes.get('/qr', qrcode.generate);
 
 var code = 0;

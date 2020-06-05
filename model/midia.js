@@ -31,6 +31,13 @@ class Midia{
             return res(r);
         });
     }
+	
+	index_folder(tipo, res){
+        sql.query("SELECT DISTINCT SUBSTRING_INDEX(SUBSTRING_INDEX(`local`, '/', -2),'/',1) AS 'local' FROM arquivo WHERE tipo="+tipo+" ORDER BY local", (err, r) => {
+            if(err)throw err;
+            return res(r);
+        });
+	}
 
     show(id, res){
         sql.query('select nome, local from arquivo where id='+id, (err, r) => {

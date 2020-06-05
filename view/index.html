@@ -31,6 +31,14 @@
             <li><a href="#" onclick="OpenWindow('http://localhost:3000/receber')" class='config'>Receber Arquivos</a></li>
           </ul>
 				</li>
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Exibir
+			<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="#" onclick="ExibirPasta(false)">Arquivos</a></li>
+					<li><a href="#" onclick="ExibirPasta(true)">Pastas</a></li>
+				</ul>
+		</li>
                 
               </ul>
             </div>
@@ -44,14 +52,13 @@
 				<input type='text' id='pesq' placeholder='Digite o nome do arquivo' class='form-control'  />
 				</form>
 			</div>
-		  
-            
+		              
             <table class="table table-striped">
               <thead>
                 <tr>
                   <th>Nome</th>
-                  <th>Local</th>
-				  <th class='config' align='center'>Opções</th>
+					<th>Local</th>
+					<th class='config' align='center'>Opções</th>
                 </tr>
               </thead>
               <tbody id='lista'>

@@ -22,6 +22,13 @@ class MidiaController{
             return res.json(r);
         })
     }
+	
+	index_folder(req, res){
+		const { tipo } = req.params;
+        Arquivo.index_folder(tipo, (r) => {
+            return res.json(r);
+        })
+	}
 
     show(req, res){
         const { id } = req.params;
