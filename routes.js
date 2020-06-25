@@ -58,8 +58,6 @@ routes.get('/dialog', checkIp,(req, res) => {
 
 routes.get('/upload/*', checkIp, (req, res) => {
 	
-	//if(!dialog) return res.send("<html><h1>Origem desconhecida</h1></html>");
-	
 	var array = req.params[0].split("/");
 	
 	var loc = encodeURI(req.params[0]);

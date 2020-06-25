@@ -210,7 +210,7 @@ function audio(id){
 }
 
 function midia(tipo, id, nome){
-    if(tipo == 1){
+    if(tipo == 1 || tipo == 4){
 		audio(id);
 		document.title = nome;
 	}
@@ -218,7 +218,7 @@ function midia(tipo, id, nome){
         OpenWindow("../abrir/"+id);
         if(tipo == 2 && player !='')player.pause();
     }
-    if(tipo > 3)OpenWindow(((host)?"../ab/"+id : "../abrir/"+id))
+    if(tipo > 4)OpenWindow(((host)?"../ab/"+id : "../abrir/"+id))
 }
 function excluir(id, nome){
 	var pergunta = confirm("Deseja excluir o arquivo '"+nome+"' da lista?")

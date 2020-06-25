@@ -1,21 +1,25 @@
 const sql = require('../config/connection');
 
-class Tipo{
+class Playlist{
 
     index(res){
-        sql.query('select nome, id from tipo order by id', (err, r) => {
+        sql.query('select nome, id from playlist order by nome', (err, r) => {
             if(err)throw err;
             return res(r);
         });
     }
 
-    store(tipo, res){
-        sql.query('insert into tipo (nome) values ("'+tipo+'")', (err, r) => {
+    store(nome, res){
+        sql.query('insert into playlist (nome) values ("'+nome+'")', (err, r) => {
             if(err)throw err;
             return res(r);
         });
     }
-
+	
+	add(playlist, midia, res){
+		sql.query('insert into playlist_has_midia (playlist, midia)'
+	}
+//
     show(id, res){
         sql.query('select nome from tipo where id='+id, (err, r) => {
             if(err)throw err;
@@ -34,4 +38,4 @@ class Tipo{
 	}
     
 }
-module.exports = new Tipo();
+module.exports = new Playlist();
