@@ -21,9 +21,9 @@ class qrcode{
 			"<table align='center'><tr><td>"+
             "<img height='200px' style='margin-top: 50px' src='"+url+"'></img>"+
             "</td></tr></table>"+
-            "<h2 align='center'>"+local+"</h2>"+
-            "<a align='center' href='/receber_pc'>Link para Computador</a>"+
-            "</div>"+
+            "<h2 align='center'>"+local+"<br><br>"+
+            "<a href='/receber_pc'>Link para Computador</a>"+
+            "</h2></div>"+
 			"<script>setTimeout(()=>{window.close(); "+
 			"document.getElementById('conteudo').innerHTML = '';}, 10000);</script>");
         })

@@ -36,7 +36,8 @@
                         
     function enviar(){
 		$.getJSON("/enviar_auth/"+$("#Login").val()+"/"+$("#Senha").val(), (data) =>{
-			window.location = "http://"+window.location.hostname +":3000/enviar/"+ data.code;
+			OpenWindow("http://"+window.location.hostname +":3000/enviar/"+ data.code);
+			window.location = "http://"+window.location.hostname +":3000";
 		})
 	}
 
@@ -44,6 +45,18 @@
 		$.getJSON("/cancel")
 		window.location = "http://"+window.location.hostname +":3000";
 	}
+
+	function OpenWindow(url)
+     {
+        config=""
+        config+="toolbar=no,";
+        config+="resizable=yes," 
+        config+="scrollbars=yes,"
+        config+="width=740,"
+        config+="height=400"
+        var window=open(url,"",config);
+        window.focus();
+     }
 	
     </script>
 </html>

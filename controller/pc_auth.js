@@ -15,7 +15,7 @@ class pc_auth{
         var log = '"'+login+senha+'"'
 
         if(isNaN(code)){
-            if(bcrypt.compare(log, code)){
+            if(await bcrypt.compare(log, code)){
                 newCode = Date.now();
                 res.json({"code":newCode});
                 return auth(newCode);
