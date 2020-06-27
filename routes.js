@@ -82,21 +82,24 @@ routes.get('/qr', qrcode.generate);
 
 var code = 0;
 var called = false;
+var pc = false;
 
 routes.get('/receber', (req, res) => {
 	called = false;
+	pc = false;
     if(req.connection.remoteAddress == '::1'){
 		qrcode.autentification(res, (auth) => {
 			code = auth;
 		});
 		setTimeout(()=>{
-			if(!called)code = 0;
+			if(!called && !pc)code = 0;
 		}, 15000)
 	}else return res.send('<h1>Não Autorizado</h1>');
 });
 routes.get('/cancel',(req, res)=>{
 	code = 0;
 	called = false;
+	pc = false;
 	return res.send('<h1>Não Autorizado</h1>');
 });
 routes.get('/enviar/:id', (req, res)=>{
@@ -107,6 +110,7 @@ routes.get('/enviar/:id', (req, res)=>{
 	}else{
 		code = 0;
 		called = false;
+		pc = false;
 		return res.send('<h1>Não Autorizado</h1>');
 	}
 });
@@ -114,6 +118,7 @@ routes.post('/enviar/:id', (req, res, next)=>{
 if(req.params.id == code && code != 0 && (called)){
 	code = 0; 
 	called=false; 
+	pc = false;
 	next();
 }else return res.status(400).json({erro:'erro'});
 }, 
@@ -122,6 +127,22 @@ upload.any(), (req, res) => {
 	shell.exec('start explorer '+__dirname + "\\uploads")
 });
 
-routes.get('/enviar/:login/:senha', pc_auth.check)
+routes.get('/enviar_auth/:login/:senha', (req, res) => {
+	pc_auth.check(req, res, code,(auth) =>{
+		code = auth;
+	})
+});
+routes.get('/receber/:login/:senha', checkIp, (req, res) => {
+	pc_auth.code(req, res, (auth) => {
+		code = auth;
+		pc = true;
+	})
+})
+routes.get('/receber_pc', checkIp, (req, res) => {
+	res.sendFile(__dirname+'/view/receber.html');
+});
+routes.get('/enviar', (req, res) => {
+	res.sendFile(__dirname+'/view/enviar_auth.html');
+});
 
 module.exports = routes;

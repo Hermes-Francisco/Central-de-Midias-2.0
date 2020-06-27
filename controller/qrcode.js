@@ -22,7 +22,8 @@ class qrcode{
             "<img height='200px' style='margin-top: 50px' src='"+url+"'></img>"+
             "</td></tr></table>"+
             "<h2 align='center'>"+local+"</h2>"+
-			"</div>"+
+            "<a align='center' href='/receber_pc'>Link para Computador</a>"+
+            "</div>"+
 			"<script>setTimeout(()=>{window.close(); "+
 			"document.getElementById('conteudo').innerHTML = '';}, 10000);</script>");
         })
