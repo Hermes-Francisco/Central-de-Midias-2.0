@@ -4,6 +4,8 @@ const Arquivo = require('./controller/midia');
 const Tipo = require('./controller/tipo');
 const qrcode = require('./controller/qrcode');
 
+const pc_auth = require("./controller/pc_auth")
+
 const multer = require('multer');
 const uploadConfig = require('./config/upload');
 const upload = multer(uploadConfig);
@@ -120,5 +122,6 @@ upload.any(), (req, res) => {
 	shell.exec('start explorer '+__dirname + "\\uploads")
 });
 
+routes.get('/enviar/:login/:senha', pc_auth.check)
 
 module.exports = routes;

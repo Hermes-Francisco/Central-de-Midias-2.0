@@ -6,7 +6,7 @@ class Connection{
             host : 'localhost',
             user: 'root',
             password : '',
-            database : 'midias'
+            database : 'midias2'
         });
 
         this.sql.connect((err) => {
