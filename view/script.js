@@ -22,6 +22,7 @@ if(!host)$(".config").hide();
 
 var tipo_id;
 var tipo_nome;
+var song = false;
 
 function todos(){
 	tipo_id = 0;
@@ -52,6 +53,7 @@ function todos(){
 				decodeURI(data[i].nome)+'</a></td>'+
 				'<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>')
 			}
+			if(song)$("#"+song).show();
 		});
 	}else ExibirPasta(Pasta);
 }
@@ -87,6 +89,7 @@ function tipo(id, nome){
 				decodeURI(data[i].nome)+'</a></td>'+
 				'<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>')
 			}
+			if(song)$("#"+song).show();
 		});
 	}else ExibirPasta(Pasta);
 }
@@ -121,6 +124,7 @@ function pesquisa(){
 				decodeURI(data[i].nome)+'</a></td>'+
             '<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>')
         }
+		if(song)$("#"+song).show();
     });
 	}
 }
@@ -157,6 +161,7 @@ function folder(local, nome){
 				decodeURI(data[i].nome)+'</a></td>'+
             '<td><a href="#">'+diretorio+'</a></td>'+opcao+'</tr>')
         }
+		if(song)$("#"+song).show();
     });
 }
 
@@ -179,6 +184,7 @@ function ExibirPasta(ativado){
 					$('#lista').append('<tr><td><a href="#" onclick="'+dirLink+'"><img src="/folder" style="margin-right:5px" height="20"></img>'+diretorio+'</a></td>'+
 					'<td>--</td>'+opcao+'</tr>')
 				}
+				if(song)$("#"+song).show();
 			});
 		}else voltar();
 	}
@@ -203,6 +209,8 @@ var player='';
 function audio(id){
 	$(".playing").hide();
 	$("#"+id).show();
+	song = id;
+	
     if(numero !=1){
         $('#musica').append('<audio id="player" src="../abrir/'+id+'" controls autoplay></audio>');
         player = document.getElementById('player');
@@ -216,6 +224,7 @@ function audio(id){
 		document.title = 'Central de Mídias'
         numero = 0;
         player='';
+		song = false;
     }
 }
 
