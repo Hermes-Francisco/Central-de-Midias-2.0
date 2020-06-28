@@ -40,7 +40,7 @@
 			if(data.mensagem == "ok"){
 				$("#loading").show();
 				$("#upload").hide();
-				$("#ip").append("Link para receber arquivos: <br>http://"+data.ip+":3000/enviar")
+				$("#ip").append("Link para receber arquivos: <br><br>http://"+data.ip+":3000/enviar")
 				setTimeout(()=>{window.close()}, 10000);
 			}
 		})
