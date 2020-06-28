@@ -299,3 +299,13 @@ function voltar(){
 	if(tipo_id > 0)tipo(tipo_id, tipo_nome);
 	else todos();
 };
+var Menu = true;
+function menu(){
+	if(window.innerWidth < 767 && Menu){
+		$('#menu').hide();
+		Menu = false;
+	}else{
+		$('#menu').show();
+		Menu = true;
+	}
+}
