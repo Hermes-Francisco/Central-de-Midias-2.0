@@ -47,7 +47,9 @@ function todos(){
 				"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
 				var nome = "'"+decodeURI(data[i].nome)+"'"
 
-				$('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+decodeURI(data[i].nome)+'</a></td>'+
+				$('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+
+				'<img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'+
+				decodeURI(data[i].nome)+'</a></td>'+
 				'<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>')
 			}
 		});
@@ -80,7 +82,9 @@ function tipo(id, nome){
 				"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
 				var nome = "'"+decodeURI(data[i].nome)+"'"
 
-				$('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+decodeURI(data[i].nome)+'</a></td>'+
+				$('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+
+				'<img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'+
+				decodeURI(data[i].nome)+'</a></td>'+
 				'<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>')
 			}
 		});
@@ -112,7 +116,9 @@ function pesquisa(){
 			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
 			var nome = "'"+decodeURI(data[i].nome)+"'"
 
-            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+decodeURI(data[i].nome)+'</a></td>'+
+            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+
+				'<img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'+
+				decodeURI(data[i].nome)+'</a></td>'+
             '<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>')
         }
     });
@@ -146,7 +152,9 @@ function folder(local, nome){
 			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
 			var nome = "'"+decodeURI(data[i].nome)+"'"
 
-            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+decodeURI(data[i].nome)+'</a></td>'+
+            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+
+				'<img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'+
+				decodeURI(data[i].nome)+'</a></td>'+
             '<td><a href="#">'+diretorio+'</a></td>'+opcao+'</tr>')
         }
     });
@@ -193,7 +201,8 @@ function OpenWindow(url)
 var numero = 0;
 var player='';
 function audio(id){
-    
+	$(".playing").hide();
+	$("#"+id).show();
     if(numero !=1){
         $('#musica').append('<audio id="player" src="../abrir/'+id+'" controls autoplay></audio>');
         player = document.getElementById('player');
@@ -202,6 +211,7 @@ function audio(id){
         player.src = '../abrir/'+id;
     }
     player.onended = ()=>{
+		$(".playing").hide();
         document.getElementById('musica').innerHTML = " ";
 		document.title = 'Central de Mídias'
         numero = 0;
