@@ -192,9 +192,11 @@ function ExibirPasta(ativado){
 			});
 		}else voltar();
 	}
+	menu();
 }
 function adicionar(){
-	$.getJSON('/dialog')
+	$.getJSON('/dialog');
+	menu();
 }
 
 function OpenWindow(url)
@@ -313,4 +315,4 @@ function menu(){
 		Menu = true;
 	}
 }
-menu()
+menu();
