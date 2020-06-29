@@ -148,4 +148,25 @@ routes.get('/enviar', (req, res) => {
 	res.sendFile(__dirname+'/view/enviar_auth.html');
 });
 
+//player
+
+routes.get('/buttons/play', (req, res) => {
+	res.sendFile(__dirname+'/view/player/play.png');
+});
+routes.get('/buttons/pause', (req, res) => {
+	res.sendFile(__dirname+'/view/player/pause.png');
+});
+routes.get('/buttons/stop', (req, res) => {
+	res.sendFile(__dirname+'/view/player/stop.png');
+});
+routes.get('/buttons/prev', (req, res) => {
+	res.sendFile(__dirname+'/view/player/anterior.png');
+});
+routes.get('/buttons/next', (req, res) => {
+	res.sendFile(__dirname+'/view/player/proximo.png');
+});
+routes.get('/buttons/detalhes', (req, res) => {
+	res.sendFile(__dirname+'/view/player/detalhes.png');
+});
+
 module.exports = routes;

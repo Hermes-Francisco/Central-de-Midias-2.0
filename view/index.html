@@ -47,13 +47,17 @@
           <div class="container" id='main'>
             
             <h2 id='Lista-titulo' align='center'></h2>
+
+            <div id="musica" align="center" style="display: none;">
+              <audio id="player" controls autoplay></audio>
+            </div>
             
             <div id='pesquisa'>
 				<form onsubmit='pesquisa()' id='search' align='center'>
 				<input type='text' id='pesq' placeholder='Digite o nome do arquivo' class='form-control'  />
 				</form>
 			</div>
-		    <div style="max-height: calc(100vh - 220px); margin-top: 15px; overflow: auto;">     
+		    <div style="max-height: calc(100vh - 230px); margin-top: 15px; margin-bottom:50px; overflow: auto;">     
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -82,11 +86,20 @@
       </div>
 
       <footer style="bottom: 0; position:fixed; width:100%; height:50px; color: white; background-color: #222222;">
-          <a href="#" onclick="play()" id="play-button">play</a>
-          <h4>Tocar todas</h4>
+          <table style="width: 100%;">
+            <tr>
+              <td>
+                <img onclick="play()" id="play-button" src="/buttons/play" height="50px"></img>
+              </td>
+              <td>
+                <h5 id="song-title"style="max-height:30px; overflow-y: hidden;">Tocar todas</h5>
+              </td>
+              <td align = "right">
+                <img id="button-detalhes" src="/buttons/detalhes" onclick="controles()" style="margin-right: 10px;margin-left: 10px;"height="30px"></img>
+              </td>
+            </tr>
+          </table>          
       </footer>
-      
-      <audio id="player" autoplay></audio>
 
     </body>
     <script src='/player_script' chartset='UTF-8'></script>

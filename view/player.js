@@ -31,11 +31,18 @@ function midia_reset(){
 
 const player = document.getElementById('player');
 const play_button = document.getElementById('play-button');
+const song_title = document.getElementById('song-title');
+
 function audio(id){
 	$(".playing").hide();
 	$("#"+id).show();
     song = id;
     last = id;
+	
+	$.getJSON("/show/"+id, (data) => {
+		document.title = decodeURI(data[0].nome);
+		song_title.innerHTML = decodeURI(data[0].nome);
+	})
 	
     player.src = '../abrir/'+id;
     
@@ -47,14 +54,16 @@ function audio(id){
         playing = false;
 
         if(tocar_todas){
-            proxima = midias[last] + 1;
-            audio(midias_num[proxima])
-        }
+			if(midias[last] + 1 < num){
+				proxima = midias[last] + 1;
+				audio(midias_num[proxima])
+			}else last = 0;
+		}
     }
 }
 
 function play(){
-    if(!playing){
+    if(!playing && midias.length > 0){
         if(last == 0)audio(midias_num[0]);
         else audio(last);
         tocar_todas = true;
@@ -63,11 +72,21 @@ function play(){
 }
 
 player.onplaying = () =>{
-    play_button.innerHTML = "pause";
+    play_button.src = "/buttons/pause";
     playing = true;
 }
 
 player.onpause = () => {
-    play_button.innerHTML = "play";
+    play_button.src = "/buttons/play";
     playing = "pause";
+}
+var showing = false;
+function controles(){
+    if(showing){
+        $("#musica").hide();
+        showing = false;
+    }else{
+        $("#musica").show();
+        showing = true;
+    }
 }
