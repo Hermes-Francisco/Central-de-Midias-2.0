@@ -10,7 +10,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
     <body>
-        <nav class="navbar navbar-inverse">
+        <nav class="navbar navbar-inverse" style="position: fixed; width: 100%; z-index:1">
             <div class="container-fluid">
               <div class="navbar-header" id='navbar_head'>
                 <a class="navbar-brand" href="#" onclick="menu()">Menu</a>
@@ -22,13 +22,13 @@
 					<span class="caret"></span></a>
 					<ul class="dropdown-menu" id="tipos"></ul>
 				</li>
-        <li><a href="#" onclick="adicionar()" class='config'>Adicionar arquivos</a></li>
+        <li><a href="#" onclick="adicionar();" class='config'>Adicionar arquivos</a></li>
         <li class="dropdown config">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Code
 					<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-            <li><a href="#" onclick="OpenWindow('http://localhost:3000/qr')" class='config'>Link</a></li>
-            <li><a href="#" onclick="OpenWindow('http://localhost:3000/receber')" class='config'>Receber Arquivos</a></li>
+            <li><a href="#" onclick="OpenWindow('http://localhost:3000/qr'); menu()" class='config'>Link</a></li>
+            <li><a href="#" onclick="OpenWindow('http://localhost:3000/receber'); menu()" class='config'>Receber Arquivos</a></li>
           </ul>
 				</li>
 		<li class="dropdown">
@@ -43,16 +43,21 @@
               </ul>
             </div>
           </nav>
+          <div style="height:50px; width: 100%"></div>
           <div class="container" id='main'>
             
             <h2 id='Lista-titulo' align='center'></h2>
-            <div id='musica' align='center'></div>
+
+            <div id="musica" align="center" style="display: none;">
+              <audio id="player" controls autoplay></audio>
+            </div>
+            
             <div id='pesquisa'>
 				<form onsubmit='pesquisa()' id='search' align='center'>
 				<input type='text' id='pesq' placeholder='Digite o nome do arquivo' class='form-control'  />
 				</form>
 			</div>
-		    <div style="max-height: 80vh; margin-top: 15px; margin-bottom:20px; overflow: auto;">     
+		    <div style="max-height: calc(100vh - 230px); margin-top: 15px; margin-bottom:50px; overflow: auto;">     
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -78,8 +83,26 @@
 				</div>
 				<button type="button" class="btn btn-primary btn-block" onclick='salvar()'>Salvar</button>
 				<button type="button" class="btn btn-default btn-block" onclick='cancelar()'>Cancelar</button>
-		  </div>
+      </div>
+
+      <footer style="bottom: 0; position:fixed; width:100%; height:50px; color: white; background-color: #222222;">
+          <table style="width: 100%;">
+            <tr>
+              <td>
+                <img onclick="play()" id="play-button" src="/buttons/play" height="50px"></img>
+              </td>
+              <td>
+                <h5 id="song-title"style="width: calc(100vw - 100px); max-height:30px; overflow: hidden;">Tocar todas</h5>
+              </td>
+              <td align = "right">
+                <img id="button-detalhes" src="/buttons/detalhes" onclick="controles()" style="margin-right: 10px;margin-left: 10px;"height="30px"></img>
+              </td>
+            </tr>
+          </table>          
+      </footer>
+
     </body>
+    <script src='/player_script' chartset='UTF-8'></script>
     <script src='/script' chartset='UTF-8'></script>
 	
 </html>

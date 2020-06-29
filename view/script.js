@@ -1,4 +1,5 @@
 todos();
+
 function listar_tipos(){
 	document.getElementById('tipos').innerHTML = " "
 	$.getJSON("/tipos", function(data) {
@@ -23,8 +24,12 @@ if(!host)$(".config").hide();
 var tipo_id;
 var tipo_nome;
 var song = false;
+var resetar = false;
 
 function todos(){
+
+	if(resetar)midia_reset();
+
 	tipo_id = 0;
 	tipo_nome = "";
 	$(".th_arquivos").show();
@@ -35,7 +40,10 @@ function todos(){
 	listar_tipos();
     document.getElementById('Lista-titulo').innerHTML = "Procurar";
     document.getElementById('lista').innerHTML = " ";
+	
 	$('#pesquisa').show();
+	$('#Lista-titulo').css("margin-top", "25px");
+	$('#Lista-titulo').css("margin-bottom", "20px");
     
 	if(!Pasta){
 		$.getJSON("/arquivos/tipo", function(data) {
@@ -53,7 +61,8 @@ function todos(){
 				$('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+
 				'<img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'+
 				decodeURI(data[i].nome)+'</a></td>'+
-				'<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>')
+				'<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>');
+				if(data[i].tipo == 1 || data[i].tipo == 4)addMidia(data[i].id);
 			}
 			if(song)$("#"+song).show();
 		});
@@ -73,7 +82,10 @@ function tipo(id, nome){
 	listar_tipos();
 	$('#pesquisa').hide();
     document.getElementById('Lista-titulo').innerHTML = iniMaiuscula(nome);
-    document.getElementById('lista').innerHTML = " ";
+	document.getElementById('lista').innerHTML = " ";
+	
+	$('#Lista-titulo').css("margin-top", "30px");
+	$('#Lista-titulo').css("margin-bottom", "30px");
 	
 	if(!Pasta){
 		$.getJSON("/arquivos/"+id, function(data) {
@@ -91,7 +103,7 @@ function tipo(id, nome){
 				$('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+
 				'<img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'+
 				decodeURI(data[i].nome)+'</a></td>'+
-				'<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>')
+				'<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>');
 			}
 			if(song)$("#"+song).show();
 		});
@@ -171,6 +183,7 @@ function folder(local, nome){
 
 function ExibirPasta(ativado){
 	Pasta = ativado;
+	menu();
 	if(!PastaAberta){
 		if(ativado){
 			document.getElementById('lista').innerHTML = " ";
@@ -194,7 +207,8 @@ function ExibirPasta(ativado){
 	}
 }
 function adicionar(){
-	$.getJSON('/dialog')
+	$.getJSON('/dialog');
+	menu();
 }
 
 function OpenWindow(url)
@@ -208,34 +222,12 @@ function OpenWindow(url)
         var window=open(url,"",config);
         window.focus();
      }
-var numero = 0;
-var player='';
-function audio(id){
-	$(".playing").hide();
-	$("#"+id).show();
-	song = id;
-	
-    if(numero !=1){
-        $('#musica').append('<audio id="player" src="../abrir/'+id+'" controls autoplay></audio>');
-        player = document.getElementById('player');
-        numero = 1;
-    }else{
-        player.src = '../abrir/'+id;
-    }
-    player.onended = ()=>{
-		$(".playing").hide();
-        document.getElementById('musica').innerHTML = " ";
-		document.title = 'Central de Mídias'
-        numero = 0;
-        player='';
-		song = false;
-    }
-}
 
 function midia(tipo, id, nome){
     if(tipo == 1 || tipo == 4){
 		audio(id);
 		document.title = nome;
+		tocar_todas = false;
 	}
     if(tipo == 2 || tipo == 3){
         OpenWindow("../abrir/"+id);
@@ -253,6 +245,7 @@ function excluir(id, nome){
             "id": id
         }));
 		xhr.response;
+		resetar = true;
 		if(tipo_id > 0)tipo(tipo_id, tipo_nome);
 		else todos();
 	}
@@ -313,4 +306,4 @@ function menu(){
 		Menu = true;
 	}
 }
-menu()
+menu();
