@@ -171,6 +171,7 @@ function folder(local, nome){
 
 function ExibirPasta(ativado){
 	Pasta = ativado;
+	menu();
 	if(!PastaAberta){
 		if(ativado){
 			document.getElementById('lista').innerHTML = " ";
@@ -192,7 +193,6 @@ function ExibirPasta(ativado){
 			});
 		}else voltar();
 	}
-	menu();
 }
 function adicionar(){
 	$.getJSON('/dialog');
