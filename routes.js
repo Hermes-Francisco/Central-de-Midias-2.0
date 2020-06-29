@@ -42,7 +42,10 @@ routes.get('/pastas/:tipo', Arquivo.index_folder);
 routes.get('/abrir/:id', Arquivo.send)
 routes.get('/script', (req, res) => {
     return res.sendFile(__dirname + "/view/script.js")
-})
+});
+routes.get('/player_script', (req, res) => {
+    return res.sendFile(__dirname + "/view/player.js")
+});
 routes.get('/ab/:id', Arquivo.open)
 routes.get('/dir/:id', Arquivo.openDir);
 routes.get('/tipos', Tipo.index);
