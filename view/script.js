@@ -30,6 +30,8 @@ function todos(){
 	$(".th_arquivos").show();
 	PastaAberta = false;
 	
+	if(Menu)menu();
+	
 	listar_tipos();
     document.getElementById('Lista-titulo').innerHTML = "Procurar";
     document.getElementById('lista').innerHTML = " ";
@@ -65,6 +67,8 @@ function tipo(id, nome){
 	tipo_nome = nome;
 	$(".th_arquivos").show();
 	PastaAberta = false;
+	
+	if(Menu)menu();
 	
 	listar_tipos();
 	$('#pesquisa').hide();
@@ -309,3 +313,4 @@ function menu(){
 		Menu = true;
 	}
 }
+menu()
