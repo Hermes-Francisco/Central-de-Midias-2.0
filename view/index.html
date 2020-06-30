@@ -47,12 +47,7 @@
           <div style="height:50px; width: 100%"></div>
           <div class="container" id='main'>
             
-            <h2 id='Lista-titulo' align='center'></h2>
-
-            <div id="musica" align="center" style="display: none;">
-              <audio id="player" controls autoplay></audio>
-            </div>
-            
+            <h2 id='Lista-titulo' align='center'></h2>            
             <div id='pesquisa'>
 				<form onsubmit='pesquisa()' id='search' align='center'>
 				<input type='text' id='pesq' placeholder='Digite o nome do arquivo' class='form-control'  />
@@ -96,9 +91,32 @@
             </div>
           </div>
         </nav>
-        <div class="container">
-          <h3>Reproduzindo:</h3>
-          <h4 id="song-title-detalhes"></h4>
+        <div class="container" style="max-height: calc(100vh - 100px); overflow:auto">
+          <div id="Reproduzindo" style="display: none;">
+            <h3>Reproduzindo:</h3>
+            <h4 id="song-title-detalhes"></h4>
+            <hr>
+          </div>
+
+          <div id="musica" align="center">
+            <audio id="player" controls autoplay></audio>
+            <table>
+              <tr>
+                <td>
+                  <img id="prev" onclick="play_prev()" style="display: none;" src="/buttons/prev" height="30px"></img>
+                </td>
+                <td>
+                  <img id="stop" onclick="stop()" style="display:none" src="/buttons/stop" height="30px"></img>
+                  <a href="#" id="atalho" onclick="Tocar_todas()">Tocar todas músicas</a>
+                </td>
+                <td align="right">
+                  <img id="next" style="display: none;" src="/buttons/next" onclick="play_next()"height="30px"></img>
+                </td>
+              </tr>
+            </table>
+            <hr>
+          </div>
+          
         </div>
 
 
@@ -111,7 +129,7 @@
                 <img onclick="play()" id="play-button" src="/buttons/play" height="50px"></img>
               </td>
               <td>
-                <h5 id="song-title"style="width: calc(100vw - 100px); max-height:30px; overflow: hidden;">Tocar todas</h5>
+                <h5 id="song-title"style="width: calc(100vw - 100px); max-height:30px; overflow: hidden;">Programado por: Hermes Francisco</h5>
               </td>
               <td align = "right">
                 <img src="/buttons/detalhes" onclick="controles(true)" style="margin-right: 10px;margin-left: 10px;"height="30px"></img>
