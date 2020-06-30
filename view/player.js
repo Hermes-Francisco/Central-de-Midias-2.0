@@ -41,9 +41,11 @@ function audio(id){
     last = id;
 	
 	$.getJSON("/show/"+id, (data) => {
-		document.title = decodeURI(data[0].nome);
-		song_title.innerHTML = decodeURI(data[0].nome);
-        song_detalhes.innerHTML = decodeURI(data[0].nome);
+        if(data[0]){
+		    document.title = decodeURI(data[0].nome);
+		    song_title.innerHTML = decodeURI(data[0].nome);
+            song_detalhes.innerHTML = decodeURI(data[0].nome);
+        }else play_next();
 	})
 	
     player.src = '../abrir/'+id;
@@ -56,13 +58,17 @@ function audio(id){
         playing = false;
 
         if(tocar_todas){
-			if(midias[last] + 1 < num){
-				proxima = midias[last] + 1;
-				audio(midias_num[proxima])
-			}else last = 0;
+			play_next();
 		}
     }
 }
+
+function play_next(){
+    if(midias[last] + 1 < num){
+        proxima = midias[last] + 1;
+        audio(midias_num[proxima])
+    }else last = 0;
+};
 
 function play(){
     if(!playing && midias.length > 0){
