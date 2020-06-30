@@ -85,11 +85,11 @@ player.onpause = () => {
 function controles(ativar){
     if(ativar){
         $("#corpo").hide();
-        $("#button-detalhes").hide();
+        $("#mini-player").hide();
         $("#detalhes").show();
     }else{
         $("#corpo").show();
-        $("#button-detalhes").show();
+        $("#mini-player").show();
         $("#detalhes").hide();
     }
 }
