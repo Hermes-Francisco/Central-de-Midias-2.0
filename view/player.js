@@ -39,11 +39,15 @@ function audio(id){
 	$("#"+id).show();
     song = id;
     last = id;
+
+    show_hide();
 	
 	$.getJSON("/show/"+id, (data) => {
-		document.title = decodeURI(data[0].nome);
-		song_title.innerHTML = decodeURI(data[0].nome);
-        song_detalhes.innerHTML = decodeURI(data[0].nome);
+        if(data[0]){
+		    document.title = decodeURI(data[0].nome);
+		    song_title.innerHTML = decodeURI(data[0].nome);
+            song_detalhes.innerHTML = decodeURI(data[0].nome);
+        }else play_next();
 	})
 	
     player.src = '../abrir/'+id;
@@ -54,21 +58,38 @@ function audio(id){
         numero = 0;
         song = false;
         playing = false;
+        $("#Reproduzindo").hide();
 
         if(tocar_todas){
-			if(midias[last] + 1 < num){
-				proxima = midias[last] + 1;
-				audio(midias_num[proxima])
-			}else last = 0;
+			play_next();
 		}
     }
+}
+
+function play_next(){
+    if(midias[last] + 1 < num){
+        proxima = midias[last] + 1;
+        audio(midias_num[proxima])
+    }else last = 0;
+};
+function play_prev(){
+    if(midias[last] - 1 >= 0){
+        proxima = midias[last] - 1;
+        audio(midias_num[proxima])
+    }else last = 0;
+}
+
+function show_hide(){
+    if(midias[last]-1 >= 0)$("#prev").show();
+    else $("#prev").hide();
+    if(midias[last]+1 < num)$("#next").show();
+    else $("#next").hide();
 }
 
 function play(){
     if(!playing && midias.length > 0){
         if(last == 0)audio(midias_num[0]);
         else audio(last);
-        tocar_todas = true;
     }else if(playing=="pause")player.play();
     else player.pause()
 }
@@ -76,6 +97,10 @@ function play(){
 player.onplaying = () =>{
     play_button.src = "/buttons/pause";
     playing = true;
+    $("#Reproduzindo").show();
+
+    $("#stop").show();
+    $("#atalho").hide();
 }
 
 player.onpause = () => {
@@ -92,4 +117,23 @@ function controles(ativar){
         $("#mini-player").show();
         $("#detalhes").hide();
     }
+}
+function Tocar_todas(){
+    tocar_todas = true;
+    play();
+}
+function stop(){
+    tocar_todas = false;
+    player.src = "";
+    playing = false;
+
+    $("#prev").hide();
+    $("#next").hide();
+    $("#stop").hide();
+    $("#atalho").show();
+    $("#Reproduzindo").hide();
+
+    play_button.src = "/buttons/play";
+
+    last = 0;
 }
