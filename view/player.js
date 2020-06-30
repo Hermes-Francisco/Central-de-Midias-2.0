@@ -32,6 +32,7 @@ function midia_reset(){
 const player = document.getElementById('player');
 const play_button = document.getElementById('play-button');
 const song_title = document.getElementById('song-title');
+const song_detalhes = document.getElementById('song-title-detalhes');
 
 function audio(id){
 	$(".playing").hide();
@@ -42,6 +43,7 @@ function audio(id){
 	$.getJSON("/show/"+id, (data) => {
 		document.title = decodeURI(data[0].nome);
 		song_title.innerHTML = decodeURI(data[0].nome);
+        song_detalhes.innerHTML = decodeURI(data[0].nome);
 	})
 	
     player.src = '../abrir/'+id;
@@ -80,13 +82,14 @@ player.onpause = () => {
     play_button.src = "/buttons/play";
     playing = "pause";
 }
-var showing = false;
-function controles(){
-    if(showing){
-        $("#musica").hide();
-        showing = false;
+function controles(ativar){
+    if(ativar){
+        $("#corpo").hide();
+        $("#button-detalhes").hide();
+        $("#detalhes").show();
     }else{
-        $("#musica").show();
-        showing = true;
+        $("#corpo").show();
+        $("#button-detalhes").show();
+        $("#detalhes").hide();
     }
 }
