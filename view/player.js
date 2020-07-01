@@ -33,6 +33,7 @@ const player = document.getElementById('player');
 const play_button = document.getElementById('play-button');
 const song_title = document.getElementById('song-title');
 const song_detalhes = document.getElementById('song-title-detalhes');
+const check = document.getElementById('all');
 
 function audio(id){
 	$(".playing").hide();
@@ -60,7 +61,7 @@ function audio(id){
         playing = false;
         $("#Reproduzindo").hide();
 
-        if(tocar_todas){
+        if(check.checked){
 			play_next();
 		}
     }
@@ -119,7 +120,7 @@ function controles(ativar){
     }
 }
 function Tocar_todas(){
-    tocar_todas = true;
+    check.checked = true;
     play();
 }
 function stop(){
