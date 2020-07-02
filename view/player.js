@@ -123,7 +123,7 @@ function Tocar_todas(){
     check.checked = true;
     play();
 }
-function stop(){
+function Stop(){
     tocar_todas = false;
     player.src = "";
     playing = false;
