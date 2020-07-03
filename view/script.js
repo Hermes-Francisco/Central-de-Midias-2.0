@@ -226,7 +226,6 @@ function OpenWindow(url)
 function midia(tipo, id, nome){
     if(tipo == 1 || tipo == 4){
 		audio(id);
-		document.title = nome;
 	}
     if(tipo == 2 || tipo == 3){
         OpenWindow("../abrir/"+id);

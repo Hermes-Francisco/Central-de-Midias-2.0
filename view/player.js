@@ -1,6 +1,7 @@
 var midias = [];
 var midias_num = [];
 var playlist = [];
+var normal = [];
 
 var tocar_todas = false; 
 
@@ -14,6 +15,7 @@ function addMidia(id){
     if(!(id in midias)){
     midias[id] = num;
     midias_num[num] = id;
+    normal[num] = id;
     num++;
        
     }
@@ -34,6 +36,7 @@ const play_button = document.getElementById('play-button');
 const song_title = document.getElementById('song-title');
 const song_detalhes = document.getElementById('song-title-detalhes');
 const check = document.getElementById('all');
+const random = document.getElementById('randomizer');
 
 function audio(id){
 	$(".playing").hide();
@@ -138,3 +141,10 @@ function Stop(){
 
     last = 0;
 }
+$("#randomizer").click(()=>{
+    if(random.checked){
+        midias_num.sort();
+    }else{
+        midias_num = normal;
+    }
+})
