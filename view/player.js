@@ -1,14 +1,12 @@
 var midias = [];
 var midias_num = [];
 var playlist = [];
-var normal = [];
 
 var tocar_todas = false; 
 
 var playing = false;
 var last = 0;
 var num = 0;
-var timer = false;
 var proxima; 
 
 function addMidia(id){
@@ -130,6 +128,7 @@ function Stop(){
     tocar_todas = false;
     player.src = "";
     playing = false;
+    $(".playing").hide();
 
     $("#prev").hide();
     $("#next").hide();
@@ -141,10 +140,10 @@ function Stop(){
 
     last = 0;
 }
-$("#randomizer").click(()=>{
+/*$("#randomizer").click(()=>{
     if(random.checked){
         midias_num.sort();
     }else{
         midias_num = normal;
     }
-})
+})*/
