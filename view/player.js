@@ -13,7 +13,6 @@ function addMidia(id){
     if(!(id in midias)){
     midias[id] = num;
     midias_num[num] = id;
-    normal[num] = id;
     num++;
        
     }
