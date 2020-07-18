@@ -23,21 +23,21 @@ class Playlist{
         });
 	}
 //
-    show(id, res){
-        sql.query('select midia from tipo where id='+id, (err, r) => {
+    content(id, res){
+        sql.query('select id, nome, local, tipo from arquivo where id in (select midia as "id" from playlist_has_midia where playlist = '+id+')', (err, r) => {
             if(err)throw err;
             return res(r);
         })        
     }
 
-    showId(tipo, res){
-        sql.query('select id from tipo where nome="'+tipo+'"', (err, r) => {
+    show(id, res){
+        sql.query('select id, nome from playlist where id="'+id+'"', (err, r) => {
             if(err)throw err;            
             return res(r);
         });
     }
 	clear(){
-		sql.query('delete from tipo where id not in (select tipo from arquivo) AND id > 4');
+		sql.query('delete from playlist_has_midia where midia not in (select id as "midia" from arquivo)');
 	}
     
 }
