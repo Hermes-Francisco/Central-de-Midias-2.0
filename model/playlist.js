@@ -43,6 +43,13 @@ class Playlist{
         });
     }
 
+    check(nome, res){
+        sql.query('select id from playlist where nome="'+nome, (err, r) => {
+            if(err)throw err;            
+            return res(r);
+        });
+    }
+
     remove(playlist, midia, res){
         sql.query('delete from playlist_has_midia where midia = '+midia+' and playlist = '+playlist+'')
     }
