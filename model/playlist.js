@@ -17,11 +17,14 @@ class Playlist{
     }
 	
 	add(playlist, midia, res){
-		sql.query('insert into playlist_has_midia (playlist, midia)'
+		sql.query('insert into playlist_has_midia (playlist, midia) values ("'+playlist+'","'+midia+'")', (err, r) => {
+            if(err)throw err;
+            return res(r);
+        });
 	}
 //
     show(id, res){
-        sql.query('select nome from tipo where id='+id, (err, r) => {
+        sql.query('select midia from tipo where id='+id, (err, r) => {
             if(err)throw err;
             return res(r);
         })        
