@@ -3,7 +3,7 @@ const sql = require('../config/connection');
 class Playlist{
 
     index(res){
-        sql.query('select nome, id from playlist order by nome', (err, r) => {
+        sql.query('select id, nome from playlist order by nome', (err, r) => {
             if(err)throw err;
             return res(r);
         });
@@ -24,17 +24,37 @@ class Playlist{
 	}
 //
     content(id, res){
-        sql.query('select id, nome, local, tipo from arquivo where id in (select midia as "id" from playlist_has_midia where playlist = '+id+')', (err, r) => {
+        sql.query('select p.numero as numero, '+
+                         'a.id as id, '+
+                         'a.nome as nome, '+
+                         'a.local as local, '+
+                         'a.tipo as tipo '+
+                 'from arquivo a inner join playlist_has_midia p on p.playlist = '+id+' order by p.numero', 
+        (err, r) => {
             if(err)throw err;
             return res(r);
         })        
     }
 
     show(id, res){
-        sql.query('select id, nome from playlist where id="'+id+'"', (err, r) => {
+        sql.query('select id, nome from playlist where id="'+id, (err, r) => {
             if(err)throw err;            
             return res(r);
         });
+    }
+
+    remove(playlist, midia, res){
+        sql.query('delete from playlist_has_midia where midia = '+midia+' and playlist = '+playlist+'')
+    }
+
+    delete(playlist, res){
+        sql.query('delete from playlist_has_midia where playlist = '+playlist, (err, r) => {
+            if(err)throw err;
+            sql.query('delete from playlist where id = '+playlist, (err, response) => {
+                if(err)throw err;
+                return res(response);
+            })
+        })
     }
 	clear(){
 		sql.query('delete from playlist_has_midia where midia not in (select id as "midia" from arquivo)');
