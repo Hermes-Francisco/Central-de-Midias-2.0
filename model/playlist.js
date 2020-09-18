@@ -17,7 +17,7 @@ class Playlist{
     }
 	
 	add(playlist, midia, res){
-		sql.query('insert into playlist_has_midia (playlist, midia)'
+		sql.query('insert into playlist_has_midia (playlist, midia)')
 	}
 //
     show(id, res){
