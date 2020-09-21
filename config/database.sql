@@ -13,20 +13,13 @@ CREATE TABLE if NOT EXISTS arquivo(
 	tipo INT
 );
 
-CREATE TABLE if NOT EXISTS playlist(
+CREATE TABLE if NOT EXISTS favoritos(
 	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-	nome VARCHAR(300) NOT NULL UNIQUE
+	numero INT,
+	midia INT
 );
-
-CREATE TABLE if NOT EXISTS playlist_has_midia(
-	playlist INT NOT NULL,
-	midia INT NOT NULL,
-	numero INT NOT NULL
-);
-
 ALTER TABLE arquivo ADD CONSTRAINT FOREIGN KEY (tipo) REFERENCES tipo(id);
-ALTER TABLE playlist_has_midia ADD CONSTRAINT FOREIGN KEY (playlist) REFERENCES playlist(id);
-ALTER TABLE playlist_has_midia ADD CONSTRAINT FOREIGN KEY (midia) REFERENCES arquivo(id);
+ALTER TABLE favoritos ADD CONSTRAINT FOREIGN KEY (midia) REFERENCES arquivo(id);
 
 INSERT INTO tipo (id,nome) VALUES 
 ('1','mp3'),
