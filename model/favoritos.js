@@ -8,6 +8,7 @@ class Favoritos{
             return res(r);
         });
     }
+ 
     store(midia, res){
         sql.query('SET @num = (SELECT COUNT(*) FROM favoritos) + 1;'
                  +'INSERT INTO favoritos (midia, numero) VALUES'
@@ -37,5 +38,11 @@ class Favoritos{
 		sql.query('delete from tipo where id not in (select tipo from arquivo) AND id > 4');
 	}
     
+    counter(res){
+        sql.query('select count(*) from favoritos', (err, r) => {
+            if(err)throw err;
+            return res(r);
+        });
+    }
 }
 module.exports = new Favoritos();
