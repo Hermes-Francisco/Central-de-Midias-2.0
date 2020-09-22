@@ -18,25 +18,28 @@ class Favoritos{
         });
     }
 
-    update(midia, numero_antigo, numero_novo){
-        sql.query('SET @novo ='+numero_novo+';'
-                 +'SET @velho ='+numero_antigo+';'
+    update(midia, numero_novo, res){
+        sql.query('SET @alterar = '+midia+';'
+                 +'SET @novo = '+numero_novo+';'
+                 +'SET @velho = (SELECT numero FROM favoritos WHERE midia = @alterar);'
                  +'UPDATE favoritos SET numero = numero -1 WHERE numero > @velho;'
                  +'UPDATE favoritos SET numero = numero +1 WHERE numero >= @novo;'
-                 +'UPDATE favoritos SET numero = @novo WHERE id ='+midia+';');
+                 +'UPDATE favoritos SET numero = @novo WHERE midia = @alterar;', (err, r) =>{
+                     if(err)throw err;
+                     this.index(res);
+                 });
     }
 
-    delete(midia){
+    delete(midia, res){
         sql.query('SET @deletar ='+midia+';'
-                 +'SET @velho = (SELECT numero FROM favoritos WHERE id = @deletar);'
+                 +'SET @velho = (SELECT numero FROM favoritos WHERE midia = @deletar);'
                  +'UPDATE favoritos SET numero = numero - 1 WHERE numero > @velho;'
-                 +'DELETE FROM favoritos WHERE id = @deletar;'
-                 +'+SELECT * FROM favoritos;');
+                 +'DELETE FROM favoritos WHERE midia = @deletar;'
+                 +'+SELECT * FROM favoritos;', (err, r) =>{
+                    if(err)throw err;
+                    this.index(res);
+                });
     }
-
-	clear(){
-		sql.query('delete from tipo where id not in (select tipo from arquivo) AND id > 4');
-	}
     
     counter(res){
         sql.query('select count(*) from favoritos', (err, r) => {
