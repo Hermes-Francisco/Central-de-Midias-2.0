@@ -17,6 +17,14 @@ class Favoritos{
         });
     }
 
+    update(midia, numero_antigo, numero_novo){
+        sql.query('SET @novo ='+numero_novo+';'
+                 +'SET @velho ='+numero_antigo+';'
+                 +'UPDATE favoritos SET numero = numero -1 WHERE numero > @velho;'
+                 +'UPDATE favoritos SET numero = numero +1 WHERE numero >= @novo;'
+                 +'UPDATE favoritos SET numero = @novo WHERE id ='+midia+';');
+    }
+
 	clear(){
 		sql.query('delete from tipo where id not in (select tipo from arquivo) AND id > 4');
 	}
