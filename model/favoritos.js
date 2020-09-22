@@ -25,6 +25,14 @@ class Favoritos{
                  +'UPDATE favoritos SET numero = @novo WHERE id ='+midia+';');
     }
 
+    delete(midia){
+        sql.query('SET @deletar ='+midia+';'
+                 +'SET @velho = (SELECT numero FROM favoritos WHERE id = @deletar);'
+                 +'UPDATE favoritos SET numero = numero - 1 WHERE numero > @velho;'
+                 +'DELETE FROM favoritos WHERE id = @deletar;'
+                 +'+SELECT * FROM favoritos;');
+    }
+
 	clear(){
 		sql.query('delete from tipo where id not in (select tipo from arquivo) AND id > 4');
 	}
