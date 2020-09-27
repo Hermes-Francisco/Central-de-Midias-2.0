@@ -160,3 +160,4 @@ function stop(){
 
     last = 0;
 }
+all_check = true
