@@ -161,3 +161,4 @@ function stop(){
     last = 0;
 }
 all_check.checked = true;
+tocar_todas = true;
