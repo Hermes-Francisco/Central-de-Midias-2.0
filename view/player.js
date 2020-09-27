@@ -138,7 +138,7 @@ function controles(ativar){
     }
 }
 function Tocar_todas(){
-    all_check = true;
+    all_check.checked = true;
     
     play();
 }
@@ -160,4 +160,4 @@ function stop(){
 
     last = 0;
 }
-all_check = true
+all_check.checked = true;
