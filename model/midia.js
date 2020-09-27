@@ -17,6 +17,13 @@ class Midia{
         });
     }
 
+    random(tipo,res){
+        sql.query('select id from arquivo where tipo = '+ tipo +' order by RAND()', (err, r) => {
+            if(err)throw err;
+            return res(r);
+        });
+    }
+
     like(nome, res){
         sql.query('select id, nome, local, tipo from arquivo where nome like "%' + nome +'%" order by nome', (err, r) => {
             if(err)throw err;
