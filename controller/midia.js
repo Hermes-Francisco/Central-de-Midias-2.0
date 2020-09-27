@@ -10,6 +10,7 @@ class MidiaController{
             return res.json(r);
         });
     }
+
     random(req, res){
         
         Arquivo.random((r) => {
