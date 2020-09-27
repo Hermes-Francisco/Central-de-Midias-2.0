@@ -29,10 +29,29 @@ function midia_reset(){
     num = 0;
 }
 
+function random(){
+    $.getJSON("/random/musicas", function(data) {
+        midia_reset();
+        for(i = 0; i < data.length; i++){
+           addMidia(data[i].id)
+        }
+    })
+}
+function un_random(){
+    $.getJSON("/arquivos/tipo", function(data) {
+        midia_reset();
+        for(i = 0; i < data.length; i++){
+            if(data[i].tipo == 1 || data[i].tipo == 4) addMidia(data[i].id)
+        }
+    })
+}
+
 const player = document.getElementById('player');
 const play_button = document.getElementById('play-button');
 const song_title = document.getElementById('song-title');
 const song_detalhes = document.getElementById('song-title-detalhes');
+
+const all_check = document.getElementById('all');
 
 function audio(id){
 	$(".playing").hide();
@@ -119,9 +138,17 @@ function controles(ativar){
     }
 }
 function Tocar_todas(){
-    tocar_todas = true;
+    all_check.checked = true;
+    
     play();
 }
+$('#all').change(function() {
+    tocar_todas = this.checked;
+})
+$('#randomizar').change(function() {
+    if(this.checked)random();
+    else un_random();
+})
 function stop(){
     tocar_todas = false;
     player.src = "";
@@ -137,3 +164,5 @@ function stop(){
 
     last = 0;
 }
+all_check.checked = true;
+tocar_todas = true;

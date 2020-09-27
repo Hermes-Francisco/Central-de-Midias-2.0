@@ -36,6 +36,7 @@ routes.get('/carregando', (req, res) => {
 
 routes.post('/', Arquivo.store);
 routes.get('/arquivos/:tipo', Arquivo.index);
+routes.get('/random/musicas', Arquivo.random);
 routes.get('/search/:query', Arquivo.search);
 routes.get('/search/:local/:tipo', Arquivo.search_folder);
 routes.get('/pastas/:tipo', Arquivo.index_folder);
