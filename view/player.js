@@ -138,7 +138,7 @@ function controles(ativar){
     }
 }
 function Tocar_todas(){
-    tocar_todas = true;
+    all_check = true;
     
     play();
 }
