@@ -142,6 +142,9 @@ function Tocar_todas(){
     
     play();
 }
+$('#all').change(function() {
+    tocar_todas = this.checked;
+})
 function stop(){
     tocar_todas = false;
     player.src = "";
