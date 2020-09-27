@@ -145,6 +145,10 @@ function Tocar_todas(){
 $('#all').change(function() {
     tocar_todas = this.checked;
 })
+$('#randomizar').change(function() {
+    if(this.checked)random();
+    else un_random();
+})
 function stop(){
     tocar_todas = false;
     player.src = "";
