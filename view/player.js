@@ -34,6 +34,8 @@ const play_button = document.getElementById('play-button');
 const song_title = document.getElementById('song-title');
 const song_detalhes = document.getElementById('song-title-detalhes');
 
+const all_check = document.getElementById('all');
+
 function audio(id){
 	$(".playing").hide();
 	$("#"+id).show();
@@ -120,6 +122,7 @@ function controles(ativar){
 }
 function Tocar_todas(){
     tocar_todas = true;
+    
     play();
 }
 function stop(){
