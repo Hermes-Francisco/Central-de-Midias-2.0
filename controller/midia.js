@@ -10,6 +10,12 @@ class MidiaController{
             return res.json(r);
         });
     }
+    random(req, res){
+        const { tipo } = req.params;
+        Arquivo.random(tipo, (r) => {
+            return res.json(r);
+        });
+    }
     search(req, res){
         const { query } = req.params;
         Arquivo.like(query, (r) => {
