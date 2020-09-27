@@ -11,8 +11,8 @@ class MidiaController{
         });
     }
     random(req, res){
-        const { tipo } = req.params;
-        Arquivo.random(tipo, (r) => {
+        
+        Arquivo.random((r) => {
             return res.json(r);
         });
     }

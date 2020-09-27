@@ -309,5 +309,11 @@ function menu(){
 menu();
 
 $(window).resize(function() {
-	menu();
+	if(window.innerWidth < 767 && Menu){
+		$('#menu').hide();
+		Menu = false;
+	}else{
+		$('#menu').show();
+		Menu = true;
+	}
 });
