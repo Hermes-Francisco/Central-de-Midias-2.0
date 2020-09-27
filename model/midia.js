@@ -17,8 +17,8 @@ class Midia{
         });
     }
 
-    random(tipo,res){
-        sql.query('select id from arquivo where tipo = '+ tipo +' order by RAND()', (err, r) => {
+    random(res){
+        sql.query('select id from arquivo where tipo = 1 or tipo = 4 order by RAND()', (err, r) => {
             if(err)throw err;
             return res(r);
         });

@@ -29,6 +29,23 @@ function midia_reset(){
     num = 0;
 }
 
+function random(){
+    $.getJSON("/random/musicas", function(data) {
+        midia_reset();
+        for(i = 0; i < data.length; i++){
+           addMidia(data[i].id)
+        }
+    })
+}
+function un_random(){
+    $.getJSON("/arquivos/tipo", function(data) {
+        midia_reset();
+        for(i = 0; i < data.length; i++){
+            if(data[i].tipo == 1 || data[i].tipo == 4) addMidia(data[i].id)
+        }
+    })
+}
+
 const player = document.getElementById('player');
 const play_button = document.getElementById('play-button');
 const song_title = document.getElementById('song-title');
