@@ -8,6 +8,12 @@ class Favoritos{
             return res(r);
         });
     }
+    random(res){
+        sql.query('select a.nome, a.id, f.numero from arquivo a join favoritos f WHERE a.id = f.midia order by RAND()', (err, r) => {
+            if(err)throw err;
+            return res(r);
+        });
+    }
  
     store(midia, res){
         sql.query('SET @num = (SELECT COUNT(*) FROM favoritos) + 1;'
@@ -26,7 +32,7 @@ class Favoritos{
                  +'UPDATE favoritos SET numero = numero +1 WHERE numero >= @novo;'
                  +'UPDATE favoritos SET numero = @novo WHERE midia = @alterar;', (err, r) =>{
                      if(err)throw err;
-                     this.index(res);
+                     return res(r);
                  });
     }
 
@@ -37,7 +43,7 @@ class Favoritos{
                  +'DELETE FROM favoritos WHERE midia = @deletar;'
                  +'+SELECT * FROM favoritos;', (err, r) =>{
                     if(err)throw err;
-                    this.index(res);
+                    return res(r);
                 });
     }
     
