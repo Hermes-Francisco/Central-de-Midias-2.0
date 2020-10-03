@@ -16,35 +16,34 @@ class Favoritos{
     }
  
     store(midia, res){
-        sql.query('SET @num = (SELECT COUNT(*) FROM favoritos) + 1;'
-                 +'INSERT INTO favoritos (midia, numero) VALUES'
-                 +'('+midia+', @num);', (err, r) => {
+        sql.query('SET @num = (SELECT COUNT(*) FROM favoritos) + 1;')
+        sql.query('INSERT INTO favoritos (midia, numero) VALUES'
+                +'('+midia+', @num);', (err, r) => {
             if(err)throw err;
             return res(r);
         });
     }
 
     update(midia, numero_novo, res){
-        sql.query('SET @alterar = '+midia+';'
-                 +'SET @novo = '+numero_novo+';'
-                 +'SET @velho = (SELECT numero FROM favoritos WHERE midia = @alterar);'
-                 +'UPDATE favoritos SET numero = numero -1 WHERE numero > @velho;'
-                 +'UPDATE favoritos SET numero = numero +1 WHERE numero >= @novo;'
-                 +'UPDATE favoritos SET numero = @novo WHERE midia = @alterar;', (err, r) =>{
+        sql.query('SET @alterar = '+midia+';')
+        sql.query('SET @novo = '+numero_novo+';')
+        sql.query('SET @velho = (SELECT numero FROM favoritos WHERE midia = @alterar);')
+        sql.query('UPDATE favoritos SET numero = numero -1 WHERE numero > @velho;')
+        sql.query('UPDATE favoritos SET numero = numero +1 WHERE numero >= @novo;')
+        sql.query('UPDATE favoritos SET numero = @novo WHERE midia = @alterar;', (err, r) =>{
                      if(err)throw err;
                      return res(r);
                  });
     }
 
     delete(midia, res){
-        sql.query('SET @deletar ='+midia+';'
-                 +'SET @velho = (SELECT numero FROM favoritos WHERE midia = @deletar);'
-                 +'UPDATE favoritos SET numero = numero - 1 WHERE numero > @velho;'
-                 +'DELETE FROM favoritos WHERE midia = @deletar;'
-                 +'+SELECT * FROM favoritos;', (err, r) =>{
-                    if(err)throw err;
+        sql.query('SET @deletar ='+midia+';')
+        sql.query('SET @velho = (SELECT numero FROM favoritos WHERE midia = @deletar);')
+        sql.query('UPDATE favoritos SET numero = numero - 1 WHERE numero > @velho;')
+        sql.query('DELETE FROM favoritos WHERE midia = @deletar;', (err, r) =>{
+                    if(err)return res(err);
                     return res(r);
-                });
+                 });
     }
     
     counter(res){

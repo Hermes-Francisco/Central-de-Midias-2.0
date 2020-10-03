@@ -11,6 +11,7 @@ const uploadConfig = require('./config/upload');
 const upload = multer(uploadConfig);
 
 const shell = require('shelljs');
+const favoritos = require('./controller/favoritos');
 
 routes.get('/teste', (req, res) => {
     return res.sendFile(__dirname + "/view/teste.html")
@@ -169,5 +170,15 @@ routes.get('/buttons/next', (req, res) => {
 routes.get('/buttons/detalhes', (req, res) => {
 	res.sendFile(__dirname+'/view/player/detalhes.png');
 });
+
+//favoritos
+
+routes.get('/favoritos', favoritos.index);
+routes.get('/favoritos/random', favoritos.random);
+routes.get('/favoritos/count', favoritos.counter);
+routes.post('/favoritos', favoritos.store);
+routes.put('/favoritos/:midia', favoritos.update);
+routes.delete('/favoritos', favoritos.delete);
+
 
 module.exports = routes;
