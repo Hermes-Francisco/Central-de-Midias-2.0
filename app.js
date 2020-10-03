@@ -6,7 +6,6 @@ class App{
         this.app = express();
         this.middlewares();
         this.router();
-        this.app.listen(3000);
     }
 
     middlewares(){
