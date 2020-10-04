@@ -176,6 +176,9 @@ routes.get('/buttons/detalhes', (req, res) => {
 routes.get('/favoritos', favoritos.index);
 routes.get('/favoritos/random', favoritos.random);
 routes.get('/favoritos/count', favoritos.counter);
+routes.get('/favoritos/script', (req, res) => {
+	res.sendFile(__dirname+'/view/favoritos.js');
+});
 routes.post('/favoritos', favoritos.store);
 routes.put('/favoritos/:midia', favoritos.update);
 routes.delete('/favoritos', favoritos.delete);
