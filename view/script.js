@@ -238,6 +238,7 @@ function midia(tipo, id, nome){
 function excluir(id, nome){
 	var pergunta = confirm("Deseja excluir o arquivo '"+nome+"' da lista?")
 	if(pergunta){
+		excluir_fav(id, "", false)
 		var xhr = new XMLHttpRequest();
         xhr.open("delete", '/', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
