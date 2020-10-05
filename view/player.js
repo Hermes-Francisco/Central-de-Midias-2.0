@@ -55,7 +55,8 @@ const all_check = document.getElementById('all');
 
 function audio(id){
 	$(".playing").hide();
-	$("#"+id).show();
+    $("#"+id).show();
+    $("#f"+id).show();
     song = id;
     last = id;
 
