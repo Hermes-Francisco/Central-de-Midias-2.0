@@ -65,7 +65,8 @@ function audio(id){
         if(data[0]){
 		    document.title = decodeURI(data[0].nome);
 		    song_title.innerHTML = decodeURI(data[0].nome);
-            song_detalhes.innerHTML = decodeURI(data[0].nome);
+            song_detalhes.innerHTML = "<text id = 'fav_icon"+id+"'></text>"+decodeURI(data[0].nome);
+            fav_check(id)
         }else play_next();
 	})
 	

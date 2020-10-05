@@ -41,16 +41,22 @@ class Favoritos{
         sql.query('SET @velho = (SELECT numero FROM favoritos WHERE midia = @deletar);')
         sql.query('UPDATE favoritos SET numero = numero - 1 WHERE numero > @velho;')
         sql.query('DELETE FROM favoritos WHERE midia = @deletar;', (err, r) =>{
-                    if(err)return res(err);
+                    if(err)throw err;
                     return res(r);
                  });
     }
     
     counter(res){
-        sql.query('select count(*) from favoritos', (err, r) => {
+        sql.query('select count(*) as "quantidade" from favoritos', (err, r) => {
             if(err)throw err;
             return res(r);
         });
+    }
+    check(midia, res){
+        sql.query('select a.nome, f.numero from favoritos f join arquivo a where f.midia = '+midia+' and a.id = '+midia, (err, r) => {
+            if (err)throw err;
+            return res(r);
+        })
     }
 }
 module.exports = new Favoritos();

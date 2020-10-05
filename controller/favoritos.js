@@ -39,6 +39,12 @@ class FavoritoController{
             return res.json(r);
         })
     }
+    check(req, res){
+        const { midia } = req.params;
+        Favorito.check(midia, (r)=>{
+            return res.json(r);
+        })
+    }
 }
 
 module.exports = new FavoritoController();

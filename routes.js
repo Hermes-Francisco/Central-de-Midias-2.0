@@ -170,12 +170,19 @@ routes.get('/buttons/next', (req, res) => {
 routes.get('/buttons/detalhes', (req, res) => {
 	res.sendFile(__dirname+'/view/player/detalhes.png');
 });
+routes.get('/buttons/addfavorito', (req, res) => {
+	res.sendFile(__dirname+'/view/player/favorito-branco.png');
+});
+routes.get('/buttons/removefavorito', (req, res) => {
+	res.sendFile(__dirname+'/view/player/favorito-preto.png');
+});
 
 //favoritos
 
 routes.get('/favoritos', favoritos.index);
 routes.get('/favoritos/random', favoritos.random);
 routes.get('/favoritos/count', favoritos.counter);
+routes.get('/favoritos/check/:midia', favoritos.check);
 routes.get('/favoritos/script', (req, res) => {
 	res.sendFile(__dirname+'/view/favoritos.js');
 });

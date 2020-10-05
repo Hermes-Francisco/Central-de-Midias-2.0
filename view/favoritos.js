@@ -1,5 +1,5 @@
 function fav_list(){
-    document.getElementById('lista_fav').innerHTML = " ";
+    /*document.getElementById('lista_fav').innerHTML = " ";
     $.getJSON("/favoritos", function(data) {
         for(i = 0; i < data.length; i++){
             
@@ -7,13 +7,15 @@ function fav_list(){
             var opcao = "<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>"
             var nome = "'"+decodeURI(data[i].nome)+"'"
     
-            $('#lista_fav').append('<tr><td><img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'+data[i].numero+'</td>'
+            $('#lista_fav').append('<tr><td><img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'
+            +'<div id="fav'+data[i].id+'"><a href="#" onclick="fav_order('+data[i].id+', '+data[i].numero+')">'+data[i].numero+'</a></div></td>'
             +'<td><a href="#" onclick="midia(1,'+data[i].id+', '+nome+')">'+
             decodeURI(data[i].nome)+'</a></td>'
             +opcao+'</tr>');
         }
         if(song)$("#"+song).show();
-    });
+    });*/
+    console.log("fav_list")
 }
 
 function excluir_fav(id, nome, origem){
@@ -28,6 +30,59 @@ function excluir_fav(id, nome, origem){
         }));
         xhr.response;
         fav_list();
-
+        fav_check(id)
 	}
+}
+var ordenando = false;
+var fav_number = false;
+function fav_order(id,numero){
+    $.getJSON('/favoritos/counter', function(data){
+        if(data[0].quantidade > 1 && !ordenando){
+            ordenando = id;
+            fav_number = numero;
+            document.getElementById('fav'+id).innerHTML = "<form onsubmit='reordenar("+id+")' id='posicao' align='center'>"
+            +'<input type="number" id="ordem" min="1" max="'+data[0].quantidade+'" value = "'+numero+'"></input></form>';
+            document.getElementById("posicao").addEventListener('submit', prevent);
+        
+        }else if(data[0].quantidade > 1 && ordenando){
+
+            document.getElementById('fav'+ordenando).innerHTML = '<a href="#" onclick="fav_order('+ordenando+', '+fav_number+')">'+fav_number+'</a>';
+            ordenando = false;
+            fav_number = false;
+            fav_order(id, numero);
+       
+        }
+    });
+}
+
+function reordenar(id){
+    var xhr = new XMLHttpRequest();
+        xhr.open("put", '/favoritos/' +id, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+			"numero_novo": $('#ordem').val()
+        }));
+        xhr.response;
+        fav_list()
+}
+
+function fav_add(midia){
+    var xhr = new XMLHttpRequest();
+    xhr.open("post", '/favoritos', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify({
+        "midia": midia
+    }));
+    xhr.response;
+    fav_list()
+    fav_check(midia)
+}
+function fav_check(midia){
+    $.getJSON('/favoritos/check/'+midia, function(data){
+        var fav_interno = false;
+        if (data[0]) fav_interno = "'"+decodeURI(data[0].nome)+"'"
+        var retorno = ((!data[0])?'<a href="#" onclick="fav_add('+midia+')"><img src="/buttons/addfavorito" height = "20"></a>':
+                           '<a href="#" onclick="excluir_fav('+midia+', '+fav_interno+', true)"><img src="/buttons/removefavorito" height = "20"></a>')
+        document.getElementById("fav_icon"+midia).innerHTML = retorno;
+    })
 }
