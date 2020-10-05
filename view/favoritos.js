@@ -73,7 +73,6 @@ function fav_add(midia){
         "midia": midia
     }));
     xhr.response;
-    fav_list()
     fav_check(midia)
 }
 function fav_check(midia){
@@ -92,6 +91,7 @@ function fav_show(ativar){
         $("#detalhes").hide();
         $("#show_detalhes").hide();
         $("#fav_button").hide();
+		fav_list()
     }else{
         $('#favoritos').hide();
         $("#mini-player").hide();
