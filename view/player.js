@@ -132,8 +132,8 @@ function audio1(id){
 }
 
 function play_next(){
-    fav_playing2 = fav_playing
     if(midias[last] + 1 < num){
+		fav_playing2 = fav_playing
         proxima = midias[last] + 1;
         audio(midias_num[proxima])
     }else last = 0;
