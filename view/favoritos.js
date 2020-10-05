@@ -63,6 +63,7 @@ function reordenar(id){
         }));
         xhr.response;
         fav_list()
+        if(!randomizado)un_random()
 }
 
 function fav_add(midia){
