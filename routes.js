@@ -176,6 +176,9 @@ routes.get('/buttons/addfavorito', (req, res) => {
 routes.get('/buttons/removefavorito', (req, res) => {
 	res.sendFile(__dirname+'/view/player/favorito-preto.png');
 });
+routes.get('/buttons/fav_icon', (req, res) => {
+	res.sendFile(__dirname+'/view/player/favorito-icon.png');
+});
 
 //favoritos
 

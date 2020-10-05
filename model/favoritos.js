@@ -19,7 +19,7 @@ class Favoritos{
         sql.query('SET @num = (SELECT COUNT(*) FROM favoritos) + 1;')
         sql.query('INSERT INTO favoritos (midia, numero) VALUES'
                 +'('+midia+', @num);', (err, r) => {
-            if(err)throw err;
+            if(err)console.log(err);
             return res(r);
         });
     }

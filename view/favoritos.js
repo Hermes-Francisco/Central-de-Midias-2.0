@@ -9,13 +9,12 @@ function fav_list(){
     
             $('#lista_fav').append('<tr><td><img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="f'+data[i].id+'" height="15px"></img>'
             +'<text align="right" id="fav'+data[i].id+'"><a href="#" onclick="fav_order('+data[i].id+', '+data[i].numero+')">'+data[i].numero+'</a></text></td>'
-            +'<td><a href="#" onclick="midia(1,'+data[i].id+', '+nome+')">'+
+            +'<td><a href="#" onclick="fav_midia('+data[i].id+')">'+
             decodeURI(data[i].nome)+'</a></td><td>'
             +opcao+'</td></tr>');
         }
         if(song)$("#f"+song).show();
     });
-    console.log("fav_list")
 }
 
 function excluir_fav(id, nome, origem){
@@ -89,12 +88,16 @@ function fav_check(midia){
 function fav_show(ativar){
     if(ativar){
         $("#mini-player").show();
-        $("#detalhes").hide();
         $('#favoritos').show();
+        $("#detalhes").hide();
+        $("#show_detalhes").hide();
+        $("#fav_button").hide();
     }else{
         $('#favoritos').hide();
         $("#mini-player").hide();
+        $("#show_detalhes").show();
         $("#detalhes").show();
+        $("#fav_button").show();
     }
 }
 fav_list()

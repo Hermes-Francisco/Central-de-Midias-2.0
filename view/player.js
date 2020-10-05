@@ -1,14 +1,53 @@
 var midias = [];
 var midias_num = [];
-var playlist = [];
 
-var tocar_todas = false; 
+var tocar_todas = true; 
 
 var playing = false;
 var last = 0;
 var num = 0;
 var timer = false;
 var proxima; 
+
+var fav_playing = false;
+var fav_playing2 = false;
+var randomizado = false;
+
+function fav_midia(id){
+    if(!fav_playing){
+        $.getJSON(((randomizado)?"/favoritos/random":"/favoritos"), function(data) {
+            midia_reset();
+            for(i = 0; i < data.length; i++){
+               addMidia(data[i].id)
+            }
+            fav_playing = true;
+            setTimeout(()=>{
+            }, 1000)
+        })
+    }
+    fav_playing2 = true;
+    audio(id);
+}
+
+function audio(id){
+    if(fav_playing2){
+        fav_playing2 = false;
+        audio1(id);
+    }else{
+        if(fav_playing){
+            var pergunta = confirm("Deseja sair da playlist de favoritos?");
+            if(pergunta){
+                fav_playing = false;
+                if(randomizado)random();
+                else un_random();
+                setTimeout(()=>{
+                    audio1(id)
+                }, 1000)
+                $("#all_fav").show();
+            }
+        }else audio1(id)
+    }
+}
 
 function addMidia(id){
     if(!(id in midias)){
@@ -30,19 +69,23 @@ function midia_reset(){
 }
 
 function random(){
-    $.getJSON("/random/musicas", function(data) {
+    $.getJSON(((fav_playing)?"/favoritos/random":"/random/musicas"), function(data) {
         midia_reset();
         for(i = 0; i < data.length; i++){
            addMidia(data[i].id)
         }
+        show_hide()
     })
 }
 function un_random(){
-    $.getJSON("/arquivos/tipo", function(data) {
+    $.getJSON(((fav_playing)?"/favoritos":"/arquivos/tipo"), function(data) {
         midia_reset();
         for(i = 0; i < data.length; i++){
-            if(data[i].tipo == 1 || data[i].tipo == 4) addMidia(data[i].id)
+            if(!fav_playing){
+                if(data[i].tipo == 1 || data[i].tipo == 4) addMidia(data[i].id)
+            }else addMidia(data[i].id);
         }
+        show_hide()
     })
 }
 
@@ -53,7 +96,8 @@ const song_detalhes = document.getElementById('song-title-detalhes');
 
 const all_check = document.getElementById('all');
 
-function audio(id){
+function audio1(id){
+
 	$(".playing").hide();
     $("#"+id).show();
     $("#f"+id).show();
@@ -88,12 +132,14 @@ function audio(id){
 }
 
 function play_next(){
+    fav_playing2 = fav_playing
     if(midias[last] + 1 < num){
         proxima = midias[last] + 1;
         audio(midias_num[proxima])
     }else last = 0;
 };
 function play_prev(){
+    fav_playing2 = fav_playing
     if(midias[last] - 1 >= 0){
         proxima = midias[last] - 1;
         audio(midias_num[proxima])
@@ -122,6 +168,7 @@ player.onplaying = () =>{
 
     $("#stop").show();
     $("#atalho").hide();
+    if(fav_playing)$("#all_fav").hide();
 }
 
 player.onpause = () => {
@@ -141,18 +188,39 @@ function controles(ativar){
 }
 function Tocar_todas(){
     all_check.checked = true;
-    
-    play();
+    fav_playing = false;
+    fav_playing2 = false;
+
+    if(randomizado)random();
+    else un_random();
+    setTimeout(()=>{
+        play()
+    }, 1000)
 }
+
+function Tocar_todas_fav(){
+    all_check.checked = true;
+    fav_playing = true;
+    fav_playing2 = true;
+    if(randomizado)random();
+    else un_random();
+    setTimeout(()=>{
+        stop();
+        play();
+    }, 1000)
+}
+
 $('#all').change(function() {
+    console.log("change")
     tocar_todas = this.checked;
 })
 $('#randomizar').change(function() {
     if(this.checked)random();
     else un_random();
+    randomizado = this.checked;
 })
 function stop(){
-    tocar_todas = false;
+    
     player.src = "";
     playing = false;
 
@@ -160,6 +228,7 @@ function stop(){
     $("#next").hide();
     $("#stop").hide();
     $("#atalho").show();
+    $("#all_fav").show();
     $("#Reproduzindo").hide();
 
     play_button.src = "/buttons/play";
@@ -167,4 +236,3 @@ function stop(){
     last = 0;
 }
 all_check.checked = true;
-tocar_todas = true;
