@@ -11,7 +11,7 @@ class Tipo{
 
     store(tipo, res){
         sql.query('insert into tipo (nome) values ("'+tipo+'")', (err, r) => {
-            if(err)throw err;
+            if(err)console.log(err);
             return res(r);
         });
     }
