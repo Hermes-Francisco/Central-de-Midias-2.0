@@ -220,19 +220,24 @@ $('#randomizar').change(function() {
     randomizado = this.checked;
 })
 function stop(){
+    var pergunta = true;
+    if(fav_playing && !fav_playing2) pergunta = confirm("Deseja sair da playlist de favoritos?");
+    if(pergunta){
+        player.src = "";
+        playing = false;
+        fav_playing = fav_playing2;
     
-    player.src = "";
-    playing = false;
+        $("#prev").hide();
+        $("#next").hide();
+        $("#stop").hide();
+        $("#atalho").show();
+        $("#all_fav").show();
+        $("#Reproduzindo").hide();
+    
+        play_button.src = "/buttons/play";
+    
+        last = 0;
+    }
 
-    $("#prev").hide();
-    $("#next").hide();
-    $("#stop").hide();
-    $("#atalho").show();
-    $("#all_fav").show();
-    $("#Reproduzindo").hide();
-
-    play_button.src = "/buttons/play";
-
-    last = 0;
 }
 all_check.checked = true;

@@ -100,4 +100,3 @@ function fav_show(ativar){
         $("#fav_button").show();
     }
 }
-fav_list()
