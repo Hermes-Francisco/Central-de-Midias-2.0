@@ -83,7 +83,7 @@ routes.get('/upload/*', checkIp, (req, res) => {
 routes.get('/show/:id', Arquivo.show)
 routes.delete('/', checkIp, Arquivo.delete);
 routes.put('/:id', checkIp, Arquivo.update);
-routes.get('/qr', qrcode.generate);
+routes.get('/qr', checkIp, qrcode.generate);
 
 var code = 0;
 var called = false;
