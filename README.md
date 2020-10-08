@@ -35,4 +35,5 @@ npm start
 O seu navegador ira abrir o seguinte endereço:
 http://localhost:3000
 
-## Como utilizar
+
+**Para informações de como utilizar o sistema, abra o [Manual da Central de Mídias](./Manual.md)**
