@@ -2,4 +2,8 @@
 
 Esse documento irá explicar as funções da Central de Mídias
 
-![](./manual/1.png?w=100)
+![](./manual/Tela_inicial.png)
+
+## Menu
+
+![](./manual/menu.png)

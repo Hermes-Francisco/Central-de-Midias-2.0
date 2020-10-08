@@ -2,6 +2,8 @@
 
 Software para organização e compartilhamento de mídias.
 
+<img src="./manual/1.png" height="300px">
+
 ## Pré requesitos
 
 É necessário ter previamente instalado em sua máquina os seguintes softwares.
