@@ -225,7 +225,8 @@ $('#randomizar').change(function() {
 })
 function stop(){
     var pergunta = true;
-    if(fav_playing && !fav_playing2) pergunta = confirm("Deseja sair da playlist de favoritos?");
+    if(fav_playing && !fav_playing2)
+		pergunta = confirm("Deseja sair da playlist de favoritos?");
     if(pergunta){
         player.src = "";
         playing = false;
@@ -239,6 +240,11 @@ function stop(){
         $("#Reproduzindo").hide();
     
         play_button.src = "/buttons/play";
+		
+		if(randomizado)random();
+		else un_random();
+		
+		song_title.innerHTML ="Programado por: Hermes Francisco. Data 05/10/2020";
     
         last = 0;
     }
