@@ -1,7 +1,7 @@
 var midias = [];
 var midias_num = [];
 
-var tocar_todas = true; 
+var tocar_todas = false; 
 
 var playing = false;
 var last = 0;
@@ -155,7 +155,11 @@ function show_hide(){
 
 function play(){
     if(!playing && midias.length > 0){
-        if(last == 0)audio(midias_num[0]);
+        if(last == 0){
+			audio(midias_num[0]);
+			all_check.checked = true;
+			tocar_todas = true
+		}
         else audio(last);
     }else if(playing=="pause")player.play();
     else player.pause()
@@ -168,7 +172,7 @@ player.onplaying = () =>{
 
     $("#stop").show();
     $("#atalho").hide();
-    if(fav_playing)$("#all_fav").hide();
+    if(fav_playing && tocar_todas)$("#all_fav").hide();
 }
 
 player.onpause = () => {
@@ -211,8 +215,8 @@ function Tocar_todas_fav(){
 }
 
 $('#all').change(function() {
-    console.log("change")
     tocar_todas = this.checked;
+	if(fav_playing)((tocar_todas)? $("#all_fav").hide() : $("#all_fav").show())
 })
 $('#randomizar').change(function() {
     if(this.checked)random();
@@ -240,4 +244,3 @@ function stop(){
     }
 
 }
-all_check.checked = true;
