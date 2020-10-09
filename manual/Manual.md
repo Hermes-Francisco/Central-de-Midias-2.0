@@ -6,7 +6,7 @@ Esse documento irá explicar as funções da Central de Mídias
 
 <br>
 
-## Conteúdo:
+## Índice:
 
 1 - [Menu Principal](./menu.md)
 
