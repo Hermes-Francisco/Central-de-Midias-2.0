@@ -1,3 +1,5 @@
+[Voltar ao Índice](/../manual.md)
+
 # Menu Principal
 
 Em dispositivos móveis (ou em janelas pequenas), o Menu Principal ficará oculto por padrão - para exibí-lo, basta tocar (ou clicar) em "Menu"
