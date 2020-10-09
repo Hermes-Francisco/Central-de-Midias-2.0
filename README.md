@@ -38,4 +38,4 @@ O seu navegador ira abrir o seguinte endereço:
 http://localhost:3000
 
 
-**Para informações de como utilizar o sistema, abra o [Manual da Central de Mídias](./Manual.md)**
+**Para informações de como utilizar o sistema, abra o [Manual da Central de Mídias](./manual/Manual.md)**
