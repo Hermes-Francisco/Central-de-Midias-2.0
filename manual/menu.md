@@ -1,4 +1,4 @@
-[Voltar ao Índice](/../manual.md)
+[Voltar ao Índice](./manual.md)
 
 # Menu Principal
 
