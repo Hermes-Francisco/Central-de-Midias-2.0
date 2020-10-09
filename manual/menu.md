@@ -16,7 +16,7 @@ O botão "procurar" volta para a lista completa de arquivos (que também possui 
 
 Lista os tipos dos arquivos registrados - por padrão, essa lista inclui os tipos Mp3, Mp4, Pdf e Ogg, independentemente se há arquivos registrados desses tipos ou não, enquanto os outros tipos só se mantém na lista enquanto houver arquivos deles.
 
-Ao clicar em um dos tipos, o sistema irá mostrar apenas os arquivos registrados daquele tipo, ou pastas que possuam arquivos daquele tipo (ver "Exibir" abaixo).
+Ao clicar em um dos tipos, o sistema irá mostrar apenas os arquivos registrados daquele tipo, ou pastas que possuam arquivos daquele tipo (ver [Exibir](#exibir)).
 
 <br>
 
