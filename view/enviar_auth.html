@@ -36,8 +36,7 @@
                         
     function enviar(){
 		$.getJSON("/enviar_auth/"+$("#Login").val()+"/"+$("#Senha").val(), (data) =>{
-			OpenWindow("http://"+window.location.hostname +":3000/enviar/"+ data.code);
-			window.location = "http://"+window.location.hostname +":3000";
+			window.location = "http://"+window.location.hostname +":3000/enviar/"+ data.code;
 		})
 	}
 

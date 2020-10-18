@@ -57,6 +57,7 @@
 		};
 		xhr.upload.onload = () => {
 			window.close();
+			window.location = "http://"+window.location.hostname +":3000";
 		};
         xhr.open("POST", '/enviar/'+id, true);
         //xhr.setRequestHeader('Content-Type', 'multipart/form-data');
@@ -66,6 +67,7 @@
 	function cancelar(){
 		$.get('/cancel',(e)=>{
 			window.close();
+			window.location = "http://"+window.location.hostname +":3000";
 		});
 	}
 	
