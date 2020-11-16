@@ -19,7 +19,7 @@ function fav_list(){
 function excluir_fav(id, origem){
     var msg = ["Deseja remover o arquivo "," dos favoritos?"]
 		$.getJSON("/show/"+id, (data) => {
-            if(origem)var pergunta = confirm(msg[0]+decodeURI(data[i].nome)+msg[1]);
+            if(origem)var pergunta = confirm(msg[0]+decodeURI(data[0].nome)+msg[1]);
             else pergunta = true;
             if(pergunta){
                 var xhr = new XMLHttpRequest();
