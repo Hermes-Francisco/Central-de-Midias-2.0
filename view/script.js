@@ -56,7 +56,7 @@ function todos(){
 				var opcao = ((host)?"<td width='100px'><a href='../dir/"+data[i].id+"' target='blanck'><img src='/folder' style='margin-right:5px' height='20'></img></a>"+
 				"<a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-left:5px; margin-right:5px' height='20'></img></a>" + 
 				"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
-				var nome = "'"+decodeURI(data[i].nome)+"'"
+				
 
 				$('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+
 				'<img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'+
@@ -98,7 +98,7 @@ function tipo(id, nome){
 				var opcao = ((host)?"<td width='100px'><a href='../dir/"+data[i].id+"' target='blanck'><img src='/folder' style='margin-right:5px' height='20'></img></a>"+
 				"<a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-left:5px; margin-right:5px' height='20'></img></a>" + 
 				"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
-				var nome = "'"+decodeURI(data[i].nome)+"'"
+				
 
 				$('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+
 				'<img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'+
@@ -133,7 +133,7 @@ function pesquisa(){
 			var opcao = ((host)?"<td width='100px'><a href='../dir/"+data[i].id+"' target='blanck'><img src='/folder' style='margin-right:5px' height='20'></img></a>"+
 			"<a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-left:5px; margin-right:5px' height='20'></img></a>" + 
 			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
-			var nome = "'"+decodeURI(data[i].nome)+"'"
+			
 
             $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+
 				'<img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'+
@@ -170,7 +170,7 @@ function folder(local, nome){
 			var opcao = ((host)?"<td width='100px'><a href='../dir/"+data[i].id+"' target='blanck'><img src='/folder' style='margin-right:5px' height='20'></img></a>"+
 			"<a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-left:5px; margin-right:5px' height='20'></img></a>" + 
 			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
-			var nome = "'"+decodeURI(data[i].nome)+"'"
+			
 
             $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+
 				'<img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'+
