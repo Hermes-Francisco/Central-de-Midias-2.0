@@ -5,7 +5,6 @@ function fav_list(){
             
             var interno = 'excluir_fav('+data[i].id+', true)'
             var opcao = "<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>"
-            var nome = "'"+decodeURI(data[i].nome)+"'"
     
             $('#lista_fav').append('<tr><td><img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="f'+data[i].id+'" height="15px"></img>'
             +'<text align="right" id="fav'+data[i].id+'"><a href="#" onclick="fav_order('+data[i].id+', '+data[i].numero+')">'+data[i].numero+'</a></text></td>'
