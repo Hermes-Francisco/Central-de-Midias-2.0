@@ -238,7 +238,7 @@ function excluir(id){
 		$.getJSON("/show/"+id, (data) => {
 		var pergunta = confirm(msg[0]+decodeURI(data[0].nome)+msg[1])
 		if(pergunta){
-			excluir_fav(id, "", false)
+			excluir_fav(id, false)
 			var xhr = new XMLHttpRequest();
 			xhr.open("delete", '/', true);
 			xhr.setRequestHeader('Content-Type', 'application/json');
