@@ -80,10 +80,8 @@ function fav_add(midia){
 }
 function fav_check(midia){
     $.getJSON('/favoritos/check/'+midia, function(data){
-        var fav_interno = false;
-        if (data[0]) fav_interno = "'"+decodeURI(data[0].nome)+"'"
         var retorno = ((!data[0])?'<a href="#" onclick="fav_add('+midia+')"><img src="/buttons/addfavorito" height = "20"></a>':
-                           '<a href="#" onclick="excluir_fav('+midia+', '+fav_interno+', true)"><img src="/buttons/removefavorito" height = "20"></a>')
+                           '<a href="#" onclick="excluir_fav('+midia+', true)"><img src="/buttons/removefavorito" height = "20"></a>')
         document.getElementById("fav_icon"+midia).innerHTML = retorno;
     })
 }
