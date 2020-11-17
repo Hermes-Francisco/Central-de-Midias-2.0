@@ -3,9 +3,8 @@ function fav_list(){
     $.getJSON("/favoritos", function(data) {
         for(i = 0; i < data.length; i++){
             
-            var interno = 'excluir_fav('+data[i].id+', "'+decodeURI(data[i].nome)+'", true)'
+            var interno = 'excluir_fav('+data[i].id+', true)'
             var opcao = "<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>"
-            var nome = "'"+decodeURI(data[i].nome)+"'"
     
             $('#lista_fav').append('<tr><td><img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="f'+data[i].id+'" height="15px"></img>'
             +'<text align="right" id="fav'+data[i].id+'"><a href="#" onclick="fav_order('+data[i].id+', '+data[i].numero+')">'+data[i].numero+'</a></text></td>'
@@ -17,20 +16,23 @@ function fav_list(){
     });
 }
 
-function excluir_fav(id, nome, origem){
-    if(origem)var pergunta = confirm("Deseja remover o arquivo '"+nome+"' dos favoritos?");
-    else pergunta = true;
-	if(pergunta){
-		var xhr = new XMLHttpRequest();
-        xhr.open("delete", '/favoritos', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({
-            "midia": id
-        }));
-        xhr.response;
-        fav_list();
-        fav_check(id)
-	}
+function excluir_fav(id, origem){
+    var msg = ["Deseja remover o arquivo "," dos favoritos?"]
+		$.getJSON("/show/"+id, (data) => {
+            if(origem)var pergunta = confirm(msg[0]+decodeURI(data[0].nome)+msg[1]);
+            else pergunta = true;
+            if(pergunta){
+                var xhr = new XMLHttpRequest();
+                xhr.open("delete", '/favoritos', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify({
+                    "midia": id
+                }));
+                xhr.response;
+                fav_list();
+                fav_check(id)
+            }
+        });
 }
 var ordenando = false;
 var fav_number = false;
@@ -78,10 +80,8 @@ function fav_add(midia){
 }
 function fav_check(midia){
     $.getJSON('/favoritos/check/'+midia, function(data){
-        var fav_interno = false;
-        if (data[0]) fav_interno = "'"+decodeURI(data[0].nome)+"'"
         var retorno = ((!data[0])?'<a href="#" onclick="fav_add('+midia+')"><img src="/buttons/addfavorito" height = "20"></a>':
-                           '<a href="#" onclick="excluir_fav('+midia+', '+fav_interno+', true)"><img src="/buttons/removefavorito" height = "20"></a>')
+                           '<a href="#" onclick="excluir_fav('+midia+', true)"><img src="/buttons/removefavorito" height = "20"></a>')
         document.getElementById("fav_icon"+midia).innerHTML = retorno;
     })
 }

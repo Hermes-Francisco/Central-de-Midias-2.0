@@ -52,13 +52,13 @@ function todos(){
 				var dir = data[i].local.split('/');
 				var diretorio = iniMaiuscula(decodeURI(dir[dir.length-2]));
 				var dirLink = "folder('"+dir[dir.length-2]+"', '"+diretorio+"')";
-				var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
+				var interno = 'excluir('+data[i].id+')'
 				var opcao = ((host)?"<td width='100px'><a href='../dir/"+data[i].id+"' target='blanck'><img src='/folder' style='margin-right:5px' height='20'></img></a>"+
 				"<a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-left:5px; margin-right:5px' height='20'></img></a>" + 
 				"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
-				var nome = "'"+decodeURI(data[i].nome)+"'"
+				
 
-				$('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+
+				$('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+
 				'<img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'+
 				decodeURI(data[i].nome)+'</a></td>'+
 				'<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>');
@@ -94,13 +94,13 @@ function tipo(id, nome){
 				var dir = data[i].local.split('/');
 				var diretorio = iniMaiuscula(decodeURI(dir[dir.length-2]));
 				var dirLink = "folder('"+dir[dir.length-2]+"', '"+diretorio+"')";
-				var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
+				var interno = 'excluir('+data[i].id+')'
 				var opcao = ((host)?"<td width='100px'><a href='../dir/"+data[i].id+"' target='blanck'><img src='/folder' style='margin-right:5px' height='20'></img></a>"+
 				"<a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-left:5px; margin-right:5px' height='20'></img></a>" + 
 				"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
-				var nome = "'"+decodeURI(data[i].nome)+"'"
+				
 
-				$('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+
+				$('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+
 				'<img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'+
 				decodeURI(data[i].nome)+'</a></td>'+
 				'<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>');
@@ -129,13 +129,13 @@ function pesquisa(){
             var dir = data[i].local.split('/');
             var diretorio = iniMaiuscula(decodeURI(dir[dir.length-2]));
 			var dirLink = "folder('"+dir[dir.length-2]+"', '"+diretorio+"')";
-			var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
+			var interno = 'excluir('+data[i].id+')'
 			var opcao = ((host)?"<td width='100px'><a href='../dir/"+data[i].id+"' target='blanck'><img src='/folder' style='margin-right:5px' height='20'></img></a>"+
 			"<a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-left:5px; margin-right:5px' height='20'></img></a>" + 
 			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
-			var nome = "'"+decodeURI(data[i].nome)+"'"
+			
 
-            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+
+            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+
 				'<img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'+
 				decodeURI(data[i].nome)+'</a></td>'+
             '<td><a href="#" onclick="'+dirLink+'">'+diretorio+'</a></td>'+opcao+'</tr>')
@@ -166,13 +166,13 @@ function folder(local, nome){
 
             var dir = data[i].local.split('/');
             var diretorio = iniMaiuscula(decodeURI(dir[dir.length-2]));
-			var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
+			var interno = 'excluir('+data[i].id+')'
 			var opcao = ((host)?"<td width='100px'><a href='../dir/"+data[i].id+"' target='blanck'><img src='/folder' style='margin-right:5px' height='20'></img></a>"+
 			"<a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-left:5px; margin-right:5px' height='20'></img></a>" + 
 			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
-			var nome = "'"+decodeURI(data[i].nome)+"'"
+			
 
-            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+', '+nome+')">'+
+            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+
 				'<img src="/icone" style="display: none; margin-right: 5px;" class="playing" id="'+data[i].id+'" height="15px"></img>'+
 				decodeURI(data[i].nome)+'</a></td>'+
             '<td><a href="#">'+diretorio+'</a></td>'+opcao+'</tr>')
@@ -223,10 +223,9 @@ function OpenWindow(url)
         window.focus();
      }
 
-function midia(tipo, id, nome){
+function midia(tipo, id){
     if(tipo == 1 || tipo == 4){
 		audio(id);
-		document.title = nome;
 	}
     if(tipo == 2 || tipo == 3){
         OpenWindow("../abrir/"+id);
@@ -234,21 +233,24 @@ function midia(tipo, id, nome){
     }
     if(tipo > 4)OpenWindow(((host)?"../ab/"+id : "../abrir/"+id))
 }
-function excluir(id, nome){
-	var pergunta = confirm("Deseja excluir o arquivo '"+nome+"' da lista?")
-	if(pergunta){
-		excluir_fav(id, "", false)
-		var xhr = new XMLHttpRequest();
-        xhr.open("delete", '/', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({
-            "id": id
-        }));
-		xhr.response;
-		resetar = true;
-		if(tipo_id > 0)tipo(tipo_id, tipo_nome);
-		else todos();
-	}
+function excluir(id){
+	var msg = ["Deseja excluir o arquivo "," da lista?"]
+		$.getJSON("/show/"+id, (data) => {
+		var pergunta = confirm(msg[0]+decodeURI(data[0].nome)+msg[1])
+		if(pergunta){
+			excluir_fav(id, false)
+			var xhr = new XMLHttpRequest();
+			xhr.open("delete", '/', true);
+			xhr.setRequestHeader('Content-Type', 'application/json');
+			xhr.send(JSON.stringify({
+				"id": id
+			}));
+			xhr.response;
+			resetar = true;
+			if(tipo_id > 0)tipo(tipo_id, tipo_nome);
+			else todos();
+		}
+	});
 }
 var id_editado = 0;
 var input_nome = document.getElementById("nome_arquivo");
