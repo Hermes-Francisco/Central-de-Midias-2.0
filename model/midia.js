@@ -25,6 +25,7 @@ class Midia{
     }
 
     like(nome, res){
+        nome = encodeURI(nome);
         sql.query('select id, nome, local, tipo from arquivo where nome like "%' + nome +'%" order by nome', (err, r) => {
             if(err)throw err;
             return res(r);
