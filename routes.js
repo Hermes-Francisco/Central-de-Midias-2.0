@@ -35,6 +35,12 @@ routes.get('/carregando', (req, res) => {
     return res.sendFile(__dirname + "/view/carregando.gif")
 })
 
+function checkIp(req, res, next){
+	if(req.connection.remoteAddress == '::1'){
+		return next();
+	}else return res.send("<h1>Não Autorizado</h1>")
+}
+
 routes.post('/', Arquivo.store);
 routes.get('/arquivos/:tipo', Arquivo.index);
 routes.get('/random/musicas', Arquivo.random);
@@ -48,15 +54,9 @@ routes.get('/script', (req, res) => {
 routes.get('/player_script', (req, res) => {
     return res.sendFile(__dirname + "/view/player.js")
 });
-routes.get('/ab/:id', Arquivo.open)
-routes.get('/dir/:id', Arquivo.openDir);
+routes.get('/ab/:id', checkIp,Arquivo.open)
+routes.get('/dir/:id', checkIp,Arquivo.openDir);
 routes.get('/tipos', Tipo.index);
-
-function checkIp(req, res, next){
-	if(req.connection.remoteAddress == '::1'){
-		return next();
-	}else return res.send("<h1>Não Autorizado</h1>")
-}
 
 routes.get('/dialog', checkIp,(req, res) => {
 	shell.exec('start explorer '+ __dirname + "\\registrar.exe");
