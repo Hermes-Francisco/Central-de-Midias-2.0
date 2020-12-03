@@ -39,3 +39,4 @@ http://localhost:3000
 
 
 **Para informações de como utilizar o sistema, abra o [Manual da Central de Mídias](./manual/Manual.md)**
+**o manual está incompleto, por enquanto**
